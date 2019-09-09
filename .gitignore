@@ -1,6 +1,3 @@
-### Linux ###
-*~
-.~*
 
 *.class
 
@@ -12,3 +9,4 @@
 target
 .idea
 *.iml
+/nbproject/
