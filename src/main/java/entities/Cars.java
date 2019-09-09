@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,31 +17,33 @@ public class Cars implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title;
     private int year;
+    private String make;
+    private String model;
+    private int price;
+    private String created;
+    private String owner;
+    private String notes;
     
     public Cars() {
     }
 
-    public Cars(String title, int year) {
-        this.title = title;
+    public Cars(int year, String make, String model, int price, String created, String owner, String notes) {
         this.year = year;
+        this.make = make;
+        this.model = model;
+        this.price = price;
+        this.created = created;
+        this.owner = owner;
+        this.notes = notes;
     }
-        
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public int getYear() {
@@ -50,8 +53,53 @@ public class Cars implements Serializable {
     public void setYear(int year) {
         this.year = year;
     }
-    
-    
 
-   
+    public String getMake() {
+        return make;
+    }
+
+    public void setMake(String make) {
+        this.make = make;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
 }

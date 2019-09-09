@@ -1,6 +1,7 @@
 package facades;
 
 import entities.Cars;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -36,10 +37,10 @@ public class CarsFacade {
         return emf.createEntityManager();
     }
     
-    public long getMovieCount(){
+    public long getCarsCount(){
         EntityManager em = emf.createEntityManager();
         try{
-            long renameMeCount = (long)em.createQuery("SELECT COUNT(r) FROM Movie r").getSingleResult();
+            long renameMeCount = (long)em.createQuery("SELECT COUNT(r) FROM Cars r").getSingleResult();
             return renameMeCount;
         }finally{  
             em.close();
@@ -47,14 +48,14 @@ public class CarsFacade {
     }
 
 
-    public Cars addMovie(String title, int year) {
-        Cars movie = new Cars(title, year);
+    public Cars addCar(int year, String make, String model, int price, String created, String owner, String notes) {
+        Cars car = new Cars(year, make, model, price, created, owner, notes);
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.persist(movie);
+            em.persist(car);
             em.getTransaction().commit();
-            return movie;
+            return car;
         } finally {
             em.close();
         }
@@ -70,21 +71,21 @@ public class CarsFacade {
         }
     }
 
-    public Long getNumberOfMovies() {
+    public Long getNumberOfCars() {
         EntityManager em = emf.createEntityManager();
         try {
-            TypedQuery<Long> num = em.createQuery("Select COUNT(c) from Movie c", Long.class);
+            TypedQuery<Long> num = em.createQuery("Select COUNT(c) from Cars c", Long.class);
             return num.getSingleResult();
         } finally {
             em.close();
         }
     }
 
-    public List<Cars> allMovies() {
+    public List<Cars> allCars() {
         EntityManager em = emf.createEntityManager();
         try {
             TypedQuery<Cars> query
-                    = em.createQuery("Select movie from Movie movie", Cars.class);
+                    = em.createQuery("Select cars from Cars cars", Cars.class);
             return query.getResultList();
         } finally {
             em.close();
@@ -95,7 +96,7 @@ public class CarsFacade {
         EntityManager em = emf.createEntityManager();
         try {
             TypedQuery<Cars> query
-                    = em.createQuery("Select movie from Movie movie where movie.title = :title", Cars.class)
+                    = em.createQuery("Select cars from Movie cars where Cars.title = :title", Cars.class)
                     .setParameter("title", title);
             return query.getResultList();
         } finally {
@@ -107,7 +108,7 @@ public class CarsFacade {
         EntityManager em = emf.createEntityManager();
         try {
             TypedQuery<Cars> query
-                    = em.createQuery("Select movie from Movie movie where movie.year = :year", Cars.class)
+                    = em.createQuery("Select cars from Cars cars where cars.year = :year", Cars.class)
                     .setParameter("year", year);
             return query.getResultList();
         } finally {

@@ -2,7 +2,7 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dto.MovieDTO;
+import dto.CarsDTO;
 import entities.Cars;
 import facades.CarsFacade;
 import utils.EMF_Creator;
@@ -30,20 +30,20 @@ import utils.EMF_Creator.DbSelector;
 import utils.EMF_Creator.Strategy;
 
 //Uncomment the line below, to temporarily disable this test
-//@Disabled
+@Disabled
 public class CarsResourceTest {
 
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/api";
     //Read this line from a settings-file  since used several places
-    private static final String TEST_DB = "jdbc:mysql://localhost:3307/movie_test";
+    private static final String TEST_DB = "jdbc:mysql://localhost:3307/caone_test";
 
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     private static HttpServer httpServer;
     private static EntityManagerFactory emf;
-    private final Cars m1 = new Cars("Some txt", 1978);
-    private final Cars m2 = new Cars("aaaaaaaa", 1975);
-    private final Cars m3 = new Cars("bbbb", 1973);
+//    private final Cars m1 = new Cars("Some txt", 1978);
+//    private final Cars m2 = new Cars("aaaaaaaa", 1975);
+//    private final Cars m3 = new Cars("bbbb", 1973);
 
     static HttpServer startServer() {
         ResourceConfig rc = ResourceConfig.forApplication(new ApplicationConfig());
@@ -80,9 +80,9 @@ public class CarsResourceTest {
             em.getTransaction().begin();
 //            em.createNamedQuery("Cars.deleteAllRows").executeUpdate();
             em.createNativeQuery("DELETE FROM MOVIE").executeUpdate();
-            em.persist(m1);
-            em.persist(m2);
-            em.persist(m3);
+//            em.persist(m1);
+//            em.persist(m2);
+//            em.persist(m3);
 
             em.getTransaction().commit();
         } finally {
@@ -206,7 +206,7 @@ public class CarsResourceTest {
         CarsFacade FACADE = CarsFacade.getMovieFacade(emf);
         Cars g = FACADE.findByID(Long.valueOf(1));
         // text in console to find DB id before text. Helps with debugging
-        System.out.println("testGetID resultat: " + g.getId() +" " + g.getTitle());
+//        System.out.println("testGetID resultat: " + g.getId() +" " + g.getTitle());
         given()
                 .contentType("application/json")
                 .get("/movies/1").then()
