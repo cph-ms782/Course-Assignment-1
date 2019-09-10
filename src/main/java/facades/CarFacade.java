@@ -1,6 +1,6 @@
 package facades;
 
-import entities.Cars;
+import entities.Car;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -11,13 +11,13 @@ import javax.persistence.TypedQuery;
  *
  * Rename Class to a relevant name Add add relevant facade methods
  */
-public class CarsFacade {
+public class CarFacade {
 
-    private static CarsFacade instance;
+    private static CarFacade instance;
     private static EntityManagerFactory emf;
     
     //Private Constructor to ensure Singleton
-    private CarsFacade() {}
+    private CarFacade() {}
     
     
     /**
@@ -25,10 +25,10 @@ public class CarsFacade {
      * @param _emf
      * @return an instance of this facade class.
      */
-    public static CarsFacade getMovieFacade(EntityManagerFactory _emf) {
+    public static CarFacade getCarFacade(EntityManagerFactory _emf) {
         if (instance == null) {
             emf = _emf;
-            instance = new CarsFacade();
+            instance = new CarFacade();
         }
         return instance;
     }
@@ -40,16 +40,16 @@ public class CarsFacade {
     public long getCarsCount(){
         EntityManager em = emf.createEntityManager();
         try{
-            long renameMeCount = (long)em.createQuery("SELECT COUNT(r) FROM Cars r").getSingleResult();
-            return renameMeCount;
+            long carsCount = (long)em.createQuery("SELECT COUNT(c) FROM Car c").getSingleResult();
+            return carsCount;
         }finally{  
             em.close();
         }
     }
 
 
-    public Cars addCar(int year, String make, String model, int price, String created, String owner, String notes) {
-        Cars car = new Cars(year, make, model, price, created, owner, notes);
+    public Car addCar(int year, String make, String model, int price, String created, String owner, String notes) {
+        Car car = new Car(year, make, model, price, created, owner, notes);
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
@@ -61,11 +61,11 @@ public class CarsFacade {
         }
     }
 
-    public Cars findByID(Long id) {
+    public Car findByID(Long id) {
         EntityManager em = emf.createEntityManager();
         try {
-            Cars book = em.find(Cars.class, id);
-            return book;
+            Car c = em.find(Car.class, id);
+            return c;
         } finally {
             em.close();
         }
@@ -74,29 +74,29 @@ public class CarsFacade {
     public Long getNumberOfCars() {
         EntityManager em = emf.createEntityManager();
         try {
-            TypedQuery<Long> num = em.createQuery("Select COUNT(c) from Cars c", Long.class);
+            TypedQuery<Long> num = em.createQuery("Select COUNT(c) from Car c", Long.class);
             return num.getSingleResult();
         } finally {
             em.close();
         }
     }
 
-    public List<Cars> allCars() {
+    public List<Car> allCars() {
         EntityManager em = emf.createEntityManager();
         try {
-            TypedQuery<Cars> query
-                    = em.createQuery("Select cars from Cars cars", Cars.class);
+            TypedQuery<Car> query
+                    = em.createQuery("Select c from Car c", Car.class);
             return query.getResultList();
         } finally {
             em.close();
         }
     }
 
-    public List<Cars> findByTitle(String title) {
+    public List<Car> findByTitle(String title) {
         EntityManager em = emf.createEntityManager();
         try {
-            TypedQuery<Cars> query
-                    = em.createQuery("Select cars from Movie cars where Cars.title = :title", Cars.class)
+            TypedQuery<Car> query
+                    = em.createQuery("Select c from Car c where c.title = :title", Car.class)
                     .setParameter("title", title);
             return query.getResultList();
         } finally {
@@ -104,11 +104,11 @@ public class CarsFacade {
         }
     }
 
-    public List<Cars> findByYear(int year) {
+    public List<Car> findByYear(int year) {
         EntityManager em = emf.createEntityManager();
         try {
-            TypedQuery<Cars> query
-                    = em.createQuery("Select cars from Cars cars where cars.year = :year", Cars.class)
+            TypedQuery<Car> query
+                    = em.createQuery("Select c from Car c where c.year = :year", Car.class)
                     .setParameter("year", year);
             return query.getResultList();
         } finally {

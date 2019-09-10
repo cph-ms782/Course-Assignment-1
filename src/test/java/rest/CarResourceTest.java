@@ -2,9 +2,9 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dto.CarsDTO;
-import entities.Cars;
-import facades.CarsFacade;
+import dto.CarDTO;
+import entities.Car;
+import facades.CarFacade;
 import utils.EMF_Creator;
 import io.restassured.RestAssured;
 import static io.restassured.RestAssured.given;
@@ -31,7 +31,7 @@ import utils.EMF_Creator.Strategy;
 
 //Uncomment the line below, to temporarily disable this test
 @Disabled
-public class CarsResourceTest {
+public class CarResourceTest {
 
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/api";
@@ -41,9 +41,9 @@ public class CarsResourceTest {
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     private static HttpServer httpServer;
     private static EntityManagerFactory emf;
-//    private final Cars m1 = new Cars("Some txt", 1978);
-//    private final Cars m2 = new Cars("aaaaaaaa", 1975);
-//    private final Cars m3 = new Cars("bbbb", 1973);
+//    private final Car m1 = new Car("Some txt", 1978);
+//    private final Car m2 = new Car("aaaaaaaa", 1975);
+//    private final Car m3 = new Car("bbbb", 1973);
 
     static HttpServer startServer() {
         ResourceConfig rc = ResourceConfig.forApplication(new ApplicationConfig());
@@ -78,8 +78,8 @@ public class CarsResourceTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-//            em.createNamedQuery("Cars.deleteAllRows").executeUpdate();
-            em.createNativeQuery("DELETE FROM MOVIE").executeUpdate();
+//            em.createNamedQuery("Car.deleteAllRows").executeUpdate();
+            em.createNativeQuery("DELETE FROM Car").executeUpdate();
 //            em.persist(m1);
 //            em.persist(m2);
 //            em.persist(m3);
@@ -100,7 +100,7 @@ public class CarsResourceTest {
         System.out.println("Testing is server UP");
         given()
                 .when()
-                .get("/movies")
+                .get("/cars")
                 .then()
                 .statusCode(200);
     }
@@ -115,7 +115,7 @@ public class CarsResourceTest {
         System.out.println("testDummyMsg");
         given()
                 .contentType("application/json")
-                .get("/movies/").then()
+                .get("/cars/").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("msg", equalTo("Hello World"));
@@ -132,7 +132,7 @@ public class CarsResourceTest {
         System.out.println("testCount");
         given()
                 .contentType("application/json")
-                .get("/movies/count").then()
+                .get("/cars/count").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("count", equalTo(3));
@@ -152,7 +152,7 @@ public class CarsResourceTest {
         System.out.println("testGetAll");
         given()
                 .contentType("application/json")
-                .get("/movies/all").then()
+                .get("/cars/all").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("list.year", hasItems(1975, 1978));
@@ -160,40 +160,8 @@ public class CarsResourceTest {
     }
 
     /**
-     * Create a test for an endpoint: api/movie/name/{name}. Use a name you know
-     * exists, and (for red students) also try with a name that does not exist
-     * (obviously this requires that you know what you return in such a case)
-     *
-     * OBS søger på film titel i stedet for skuespiller navn
-     *
-     * @throws Exception
-     */
-    @Test
-    public void testGetName() throws Exception {
-        System.out.println("testGetName");
-        given()
-                .contentType("application/json")
-                .get("/movies/movie/aaaaaaaa").then()
-                .assertThat()
-                .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("list.title", hasItems("aaaaaaaa"));
-    }
-
-    @Test
-    public void testGetWrongName() throws Exception {
-        System.out.println("testGetWrongName");
-        List<Cars> list = new ArrayList();
-        given()
-                .contentType("application/json")
-                .get("/movies/movie/Hansens").then()
-                .assertThat()
-                .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("list.title", hasItems(list.toArray()));
-    }
-
-    /**
      * Create a test for the an endpoint: api/movie/{id} and verify that you get
- the expected Cars
+ the expected Car
      *
      * @throws Exception
      */
@@ -202,9 +170,9 @@ public class CarsResourceTest {
     public void testGetID() throws Exception {
         System.out.println("testGetID");
         Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-        List<Cars> list = new ArrayList();
-        CarsFacade FACADE = CarsFacade.getMovieFacade(emf);
-        Cars g = FACADE.findByID(Long.valueOf(1));
+        List<Car> list = new ArrayList();
+        CarFacade FACADE = CarFacade.getCarFacade(emf);
+        Car g = FACADE.findByID(Long.valueOf(1));
         // text in console to find DB id before text. Helps with debugging
 //        System.out.println("testGetID resultat: " + g.getId() +" " + g.getTitle());
         given()

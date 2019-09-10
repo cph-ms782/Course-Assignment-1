@@ -2,10 +2,10 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dto.CarsDTO;
-import entities.Cars;
+import dto.CarDTO;
+import entities.Car;
 import utils.EMF_Creator;
-import facades.CarsFacade;
+import facades.CarFacade;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.Consumes;
@@ -18,8 +18,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+/**
+ * 
+ * @author martin
+ */
 @Path("cars")
-public class CarsResource {
+public class CarResource {
 
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory(
                 "pu",
@@ -27,7 +31,7 @@ public class CarsResource {
                 "dev",
                 "ax2",
                 EMF_Creator.Strategy.CREATE);
-    private static final CarsFacade FACADE =  CarsFacade.getMovieFacade(EMF);
+    private static final CarFacade FACADE =  CarFacade.getCarFacade(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
             
     @GET
@@ -40,10 +44,8 @@ public class CarsResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getAllMovies() {
-//    public Response getAllMovies() {
-        List<Cars> list = FACADE.allCars();
-        return GSON.toJson(new CarsDTO(list));
-//        return Response.ok().entity(GSON.toJson(new CarsDTO(list))).build();
+        List<Car> list = FACADE.allCars();
+        return GSON.toJson(new CarDTO(list));
     }
     
     @Path("count")
@@ -59,24 +61,24 @@ public class CarsResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getCarsPerYear(@PathParam("id") Long id) {
-        Cars cars = FACADE.findByID(id);
-        return GSON.toJson(new CarsDTO(cars));
+        Car cars = FACADE.findByID(id);
+        return GSON.toJson(new CarDTO(cars));
     }
     
     @Path("year/{year}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getMoviesPerYear(@PathParam("year") int year) {
-        List<Cars> list = FACADE.findByYear(year);
-        return GSON.toJson(new CarsDTO(list));
+        List<Car> list = FACADE.findByYear(year);
+        return GSON.toJson(new CarDTO(list));
     }
     
     @Path("movie/{title}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getMoviesPerTitle(@PathParam("title") String title) {
-        List<Cars> list = FACADE.findByTitle(title);
-        return GSON.toJson(new CarsDTO(list));
+        List<Car> list = FACADE.findByTitle(title);
+        return GSON.toJson(new CarDTO(list));
     }
     
     @Path("fill")
@@ -96,14 +98,14 @@ public class CarsResource {
     
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
-    public void create(Cars entity) {
+    public void create(Car entity) {
         throw new UnsupportedOperationException();
     }
     
     @PUT
     @Path("/{id}")
     @Consumes({MediaType.APPLICATION_JSON})
-    public void update(Cars entity, @PathParam("id") int id) {
+    public void update(Car entity, @PathParam("id") int id) {
         throw new UnsupportedOperationException();
     }
     

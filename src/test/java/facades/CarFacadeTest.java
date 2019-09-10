@@ -1,6 +1,6 @@
 package facades;
 
-import entities.Cars;
+import entities.Car;
 import utils.EMF_Creator;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -16,23 +16,23 @@ import utils.EMF_Creator.Strategy;
 
 //Uncomment the line below, to temporarily disable this test
 @Disabled
-public class MovieFacadeTest {
+public class CarFacadeTest {
 
     private static EntityManagerFactory emf;
-    private static CarsFacade facade;
+    private static CarFacade facade;
 
-    public MovieFacadeTest() {
+    public CarFacadeTest() {
     }
 
     //@BeforeAll
     public static void setUpClass() {
         emf = EMF_Creator.createEntityManagerFactory(
                 "pu",
-                "jdbc:mysql://localhost:3307/movie_test",
+                "jdbc:mysql://localhost:3307/caone_test",
                 "dev",
                 "ax2",
                 EMF_Creator.Strategy.CREATE);
-        facade = CarsFacade.getMovieFacade(emf);
+        facade = CarFacade.getCarFacade(emf);
     }
 
     /*   **** HINT **** 
@@ -44,7 +44,7 @@ public class MovieFacadeTest {
     @BeforeAll
     public static void setUpClassV2() {
        emf = EMF_Creator.createEntityManagerFactory(DbSelector.TEST,Strategy.DROP_AND_CREATE);
-       facade = CarsFacade.getMovieFacade(emf);
+       facade = CarFacade.getCarFacade(emf);
     }
 
     @AfterAll
@@ -58,9 +58,9 @@ public class MovieFacadeTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
-//            em.persist(new Cars("Some txt", 1978));
-//            em.persist(new Cars("aaa", 1975));
+            em.createNamedQuery("Car.deleteAllRows").executeUpdate();
+//            em.persist(new Car("Some txt", 1978));
+//            em.persist(new Car("aaa", 1975));
 
             em.getTransaction().commit();
         } finally {
