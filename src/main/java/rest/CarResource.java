@@ -69,18 +69,5 @@ public class CarResource {
         FACADE.addCar(2009, "Volvo", "180", 100000, "19-05-2018", "Frederik", "Der er en ridse i lakken");
         return GSON.toJson("Database filled");
     }
-    
-    @POST
-    @Consumes({MediaType.APPLICATION_JSON})
-    public void create(Car entity) {
-        throw new UnsupportedOperationException();
-    }
-    
-    @PUT
-    @Path("/{id}")
-    @Consumes({MediaType.APPLICATION_JSON})
-    public void update(Car entity, @PathParam("id") int id) {
-        throw new UnsupportedOperationException();
-    }
-    
+
 }
