@@ -35,18 +35,25 @@ function getUser(e) {
 /**
  * Laver tabel over alle film
  */
+
+
 function getAllUsers(e) {
     e.preventDefault();
-    let url = "/caone/api/cars/all"; 
+    let url = "/caone/api/cars/all";
     console.log(url);
     fetch(url)
-            .then(res => res.json()) //in flow1, just do it
+            .then(res => res.json())
             .then(data => {
-                // Inside this callback, and only here, the response data is available
+                // importing table functions
+                var tableTestScript = $.getScript('js/tables.js', function () {
+                    test();
+                });
+                tableTestScript;
+                
                 var table = [];
                 var name;
                 var phone;
-                console.log("data.list: "+ data.list);
+                console.log("data.list: " + data.list);
                 table.push("<thead><tr><th>Title:</th><th>Year:</th></th></tr></thead>");
                 document.querySelector("#users").innerHTML = data.comp;
                 data.list.forEach(function (k) {
@@ -60,7 +67,7 @@ function getAllUsers(e) {
                             console.log("year: " + year);
                         }
                     });
-                    table.push("<tbody><tr><td>" + title + "</td><td>" + year 
+                    table.push("<tbody><tr><td>" + title + "</td><td>" + year
                             + "</td></tr></tbody>");
                 });
                 document.querySelector("#users").innerHTML =
