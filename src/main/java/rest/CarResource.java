@@ -57,30 +57,6 @@ public class CarResource {
         return "{\"count\":"+count+"}";  //Done manually so no need for a DTO
     }
     
-    @Path("{id}")
-    @GET
-    @Produces({MediaType.APPLICATION_JSON})
-    public String getCarsPerYear(@PathParam("id") Long id) {
-        Car cars = FACADE.findByID(id);
-        return GSON.toJson(new CarDTO(cars));
-    }
-    
-    @Path("year/{year}")
-    @GET
-    @Produces({MediaType.APPLICATION_JSON})
-    public String getMoviesPerYear(@PathParam("year") int year) {
-        List<Car> list = FACADE.findByYear(year);
-        return GSON.toJson(new CarDTO(list));
-    }
-    
-    @Path("movie/{title}")
-    @GET
-    @Produces({MediaType.APPLICATION_JSON})
-    public String getMoviesPerTitle(@PathParam("title") String title) {
-        List<Car> list = FACADE.findByTitle(title);
-        return GSON.toJson(new CarDTO(list));
-    }
-    
     @Path("fill")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
@@ -93,8 +69,6 @@ public class CarResource {
         FACADE.addCar(2009, "Volvo", "180", 100000, "19-05-2018", "Frederik", "Der er en ridse i lakken");
         return GSON.toJson("Database filled");
     }
-
-    
     
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
@@ -108,8 +82,5 @@ public class CarResource {
     public void update(Car entity, @PathParam("id") int id) {
         throw new UnsupportedOperationException();
     }
-    
-    
-    
     
 }
