@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,14 +25,14 @@ public class Car implements Serializable {
     private String make;
     private String model;
     private int price;
-    private String created;
+    private LocalDate created;
     private String owner;
     private String notes;
     
     public Car() {
     }
 
-    public Car(int year, String make, String model, int price, String created, String owner, String notes) {
+    public Car(int year, String make, String model, int price, LocalDate created, String owner, String notes) {
         this.year = year;
         this.make = make;
         this.model = model;
@@ -81,11 +82,11 @@ public class Car implements Serializable {
         this.price = price;
     }
 
-    public String getCreated() {
+    public LocalDate getCreated() {
         return created;
     }
 
-    public void setCreated(String created) {
+    public void setCreated(LocalDate created) {
         this.created = created;
     }
 

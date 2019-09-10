@@ -1,7 +1,7 @@
 package facades;
 
 import entities.Car;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -48,7 +48,7 @@ public class CarFacade {
     }
 
 
-    public Car addCar(int year, String make, String model, int price, String created, String owner, String notes) {
+    public Car addCar(int year, String make, String model, int price, LocalDate created, String owner, String notes) {
         Car car = new Car(year, make, model, price, created, owner, notes);
         EntityManager em = emf.createEntityManager();
         try {

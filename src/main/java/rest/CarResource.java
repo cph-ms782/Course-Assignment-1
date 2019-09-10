@@ -6,17 +6,14 @@ import dto.CarDTO;
 import entities.Car;
 import utils.EMF_Creator;
 import facades.CarFacade;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 /**
  * 
@@ -61,12 +58,13 @@ public class CarResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getMoviesPerTitle() {
-        FACADE.addCar(1976, "Toyota", "Corolla", 2000, "10-02-2013", "Frederik", "Der er en ridse i lakken");
-        FACADE.addCar(1985, "VW", "Corolla", 5000, "08-10-2014", "Frederik", "Der er en ridse i lakken");
-        FACADE.addCar(2012, "Volvo", "Corolla", 10000, "12-06-2015", "Frederik", "Der er en ridse i lakken");
-        FACADE.addCar(1995, "VW", "Corolla", 10000, "01-10-2016", "Frederik", "Der er en ridse i lakken");
-        FACADE.addCar(2015, "Toyota", "Corolla", 210505, "25-09-2017", "Frederik", "Der er en ridse i lakken");
-        FACADE.addCar(2009, "Volvo", "180", 100000, "19-05-2018", "Frederik", "Der er en ridse i lakken");
+        FACADE.addCar(1976, "Toyota", "Corolla", 2000, LocalDate.of(2015, 12, 31), "Frederik", "Der er en ridse i lakken");
+        FACADE.addCar(1985, "VW", "Polo", 2000, LocalDate.of(2013,5,1), "Frederik", "Der er en ridse i lakken");
+        FACADE.addCar(2012, "Volvo", "Corolla", 10000, LocalDate.of(2015,9,22), "Frederik", "Der er en ridse i lakken");
+        FACADE.addCar(1995, "VW", "Golf", 10000, LocalDate.of(2016,1,10), "Frederik", "Der er en ridse i lakken");
+        FACADE.addCar(2010, "Toyota", "Aygo", 12542, LocalDate.of(2015,5,12), "Frederik", "Der er en ridse i lakken");
+        FACADE.addCar(2015, "Toyota", "Corolla", 210500, LocalDate.of(2017,9,25), "Frederik", "Der er en ridse i lakken");
+        FACADE.addCar(2009, "Volvo", "180", 100000, LocalDate.of(2018,5,10), "Frederik", "Der er en ridse i lakken");
         return GSON.toJson("Database filled");
     }
 
