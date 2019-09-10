@@ -10,6 +10,7 @@ import io.restassured.RestAssured;
 import static io.restassured.RestAssured.given;
 import io.restassured.parsing.Parser;
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -30,7 +31,7 @@ import utils.EMF_Creator.DbSelector;
 import utils.EMF_Creator.Strategy;
 
 //Uncomment the line below, to temporarily disable this test
-@Disabled
+//@Disabled
 public class CarResourceTest {
 
     private static final int SERVER_PORT = 7777;
@@ -41,9 +42,9 @@ public class CarResourceTest {
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     private static HttpServer httpServer;
     private static EntityManagerFactory emf;
-//    private final Car m1 = new Car("Some txt", 1978);
-//    private final Car m2 = new Car("aaaaaaaa", 1975);
-//    private final Car m3 = new Car("bbbb", 1973);
+    private final Car m1 = new Car(1980, "Volvo", "m1", 2000, LocalDate.of(2012, 12, 05), "F", "N");
+    private final Car m2 = new Car(1975, "BMW", "m2", 2010, LocalDate.of(2013, 11, 05), "E", "S");
+    private final Car m3 = new Car(1970, "Toyota", "m3", 2015, LocalDate.of(2011, 1, 1), "D", "A");
 
     static HttpServer startServer() {
         ResourceConfig rc = ResourceConfig.forApplication(new ApplicationConfig());
@@ -53,10 +54,6 @@ public class CarResourceTest {
     @BeforeAll
     public static void setUpClass() {
         emf = EMF_Creator.createEntityManagerFactory(DbSelector.TEST, Strategy.DROP_AND_CREATE);
-
-        //NOT Required if you use the version of EMF_Creator.createEntityManagerFactory used above        
-        //System.setProperty("IS_TEST", TEST_DB);
-        //We are using the database on the virtual Vagrant image, so username password are the same for all dev-databases
         httpServer = startServer();
 
         //Setup RestAssured
@@ -78,11 +75,11 @@ public class CarResourceTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-//            em.createNamedQuery("Car.deleteAllRows").executeUpdate();
-            em.createNativeQuery("DELETE FROM Car").executeUpdate();
-//            em.persist(m1);
-//            em.persist(m2);
-//            em.persist(m3);
+            em.createNamedQuery("Car.deleteAllRows").executeUpdate();
+//            em.createNativeQuery("DELETE FROM Car").executeUpdate();
+            em.persist(m1);
+            em.persist(m2);
+            em.persist(m3);
 
             em.getTransaction().commit();
         } finally {
@@ -147,7 +144,7 @@ public class CarResourceTest {
                 .get("/cars/all").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("list.year", hasItems(1975, 1978));
+                .body("list.year", hasItems(1980, 1975, 1970));
     }
 
 }
