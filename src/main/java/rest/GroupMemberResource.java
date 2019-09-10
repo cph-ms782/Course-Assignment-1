@@ -3,7 +3,6 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import facades.CarsFacade;
 import facades.GroupMemberFacade;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.GET;
@@ -20,7 +19,7 @@ public class GroupMemberResource {
                 "dev",
                 "ax2",
                 EMF_Creator.Strategy.CREATE);
-    private static final GroupMemberFacade FACADE = GroupMemberFacade.getMemberFacade(EMF);
+    private static final GroupMemberFacade FACADE = GroupMemberFacade.getGroupMemberFacade(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     
     @GET
@@ -32,19 +31,19 @@ public class GroupMemberResource {
     @Path("all")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public String getAllMembers(){
-        return GSON.toJson(FACADE.allMembers());
+    public String getAllGroupMembers(){
+        return GSON.toJson(FACADE.allGroupMembers());
     }
     
     @Path("fill")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String fill(){
-        FACADE.addMember("Mads-Ulrik Hansen", "yellow", 1992, "Han hedder Madsu");
-        FACADE.addMember("Frederik Thorup", "yellow", 1989, "Hellerup er lækker");
-        FACADE.addMember("Christian Kehr", "yellow", 1988, "Vil gerne hjem");
-        FACADE.addMember("Martin Sander-Thomsen", "red", 1969, "Han er smart");
-        FACADE.addMember("Simon Kruse", "Orange", 1991, "Han skal til at flytte");
+        FACADE.addGroupMember("Mads-Ulrik Hansen", "yellow", 1992, "Han hedder Madsu");
+        FACADE.addGroupMember("Frederik Thorup", "yellow", 1989, "Hellerup er lækker");
+        FACADE.addGroupMember("Christian Kehr", "yellow", 1988, "Vil gerne hjem");
+        FACADE.addGroupMember("Martin Sander-Thomsen", "red", 1969, "Han er smart");
+        FACADE.addGroupMember("Simon Kruse", "Orange", 1991, "Han skal til at flytte");
         return GSON.toJson("Database filled with members");
     }
     

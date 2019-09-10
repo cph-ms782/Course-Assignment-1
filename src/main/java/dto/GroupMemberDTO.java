@@ -1,16 +1,18 @@
 
 package dto;
 
+import entities.GroupMember;
+
 
 public class GroupMemberDTO {
     private String name;
     private String color;
     private int studentID;
 
-    public GroupMemberDTO(String name, String color, int studentID) {
-        this.name = name;
-        this.color = color;
-        this.studentID = studentID;
+    public GroupMemberDTO(GroupMember groupMember) {
+        this.name = groupMember.getName();
+        this.color = groupMember.getColor();
+        this.studentID = Math.toIntExact(studentID);
     }
     
 }

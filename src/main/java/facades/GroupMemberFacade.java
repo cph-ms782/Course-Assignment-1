@@ -1,6 +1,6 @@
 package facades;
 
-import entities.Cars;
+import entities.Car;
 import entities.GroupMember;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -26,7 +26,7 @@ public class GroupMemberFacade {
      * @param _emf
      * @return an instance of this facade class.
      */
-    public static GroupMemberFacade getMemberFacade(EntityManagerFactory _emf) {
+    public static GroupMemberFacade getGroupMemberFacade(EntityManagerFactory _emf) {
         if (instance == null) {
             emf = _emf;
             instance = new GroupMemberFacade();
@@ -41,7 +41,7 @@ public class GroupMemberFacade {
 
 
 
-    public GroupMember addMember(String name, String color, int birthYear, String note) {
+    public GroupMember addGroupMember(String name, String color, int birthYear, String note) {
         GroupMember m = new GroupMember(name, color, birthYear, note);
         EntityManager em = emf.createEntityManager();
         try {
@@ -57,7 +57,7 @@ public class GroupMemberFacade {
 
 
 
-    public List<GroupMember> allMembers() {
+    public List<GroupMember> allGroupMembers() {
         EntityManager em = emf.createEntityManager();
         try {
             TypedQuery<GroupMember> query
@@ -69,13 +69,6 @@ public class GroupMemberFacade {
     }
 
   
-    
-    public static void main(String[] args) {
-        EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.DEV, EMF_Creator.Strategy.CREATE);
-        GroupMemberFacade mf = GroupMemberFacade.getMemberFacade(emf);
-        GroupMember m = mf.addMember("test", "test", 0, "test");
-        System.out.println(m);
-    }
     
     
 }
