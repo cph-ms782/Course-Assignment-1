@@ -40,8 +40,8 @@ public class CarFacade {
     public long getCarsCount(){
         EntityManager em = emf.createEntityManager();
         try{
-            long renameMeCount = (long)em.createQuery("SELECT COUNT(r) FROM Car r").getSingleResult();
-            return renameMeCount;
+            long carsCount = (long)em.createQuery("SELECT COUNT(c) FROM Car c").getSingleResult();
+            return carsCount;
         }finally{  
             em.close();
         }
@@ -85,7 +85,7 @@ public class CarFacade {
         EntityManager em = emf.createEntityManager();
         try {
             TypedQuery<Car> query
-                    = em.createQuery("Select car from Car car", Car.class);
+                    = em.createQuery("Select c from Car c", Car.class);
             return query.getResultList();
         } finally {
             em.close();
@@ -96,7 +96,7 @@ public class CarFacade {
         EntityManager em = emf.createEntityManager();
         try {
             TypedQuery<Car> query
-                    = em.createQuery("Select car from Car car where Car.title = :title", Car.class)
+                    = em.createQuery("Select c from Car c where c.title = :title", Car.class)
                     .setParameter("title", title);
             return query.getResultList();
         } finally {
@@ -108,7 +108,7 @@ public class CarFacade {
         EntityManager em = emf.createEntityManager();
         try {
             TypedQuery<Car> query
-                    = em.createQuery("Select car from Car car where car.year = :year", Car.class)
+                    = em.createQuery("Select c from Car c where c.year = :year", Car.class)
                     .setParameter("year", year);
             return query.getResultList();
         } finally {
