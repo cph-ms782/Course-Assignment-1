@@ -40,7 +40,7 @@ public class CarResource {
     @Path("all")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public String getAllMovies() {
+    public String getAllCars() {
         List<Car> list = FACADE.allCars();
         return GSON.toJson(new CarDTO(list));
     }
@@ -57,7 +57,7 @@ public class CarResource {
     @Path("fill")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public String getMoviesPerTitle() {
+    public String getCarsPerTitle() {
         FACADE.addCar(1976, "Toyota", "Corolla", 2000, LocalDate.of(2015, 12, 31), "Frederik", "Der er en ridse i lakken");
         FACADE.addCar(1985, "VW", "Polo", 2000, LocalDate.of(2013,5,1), "Frederik", "Der er en ridse i lakken");
         FACADE.addCar(2012, "Volvo", "Corolla", 10000, LocalDate.of(2015,9,22), "Frederik", "Der er en ridse i lakken");
