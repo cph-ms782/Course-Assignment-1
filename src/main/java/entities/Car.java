@@ -8,7 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 
-
+/**
+ * 
+ * @author martin
+ */
 @Entity
 @NamedQuery(name = "Car.deleteAllRows", query = "DELETE from Car")
 public class Car implements Serializable {

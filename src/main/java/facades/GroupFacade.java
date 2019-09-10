@@ -1,6 +1,5 @@
 package facades;
 
-import entities.Cars;
 import entities.Group;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -11,13 +10,13 @@ import javax.persistence.TypedQuery;
  *
  * Rename Class to a relevant name Add add relevant facade methods
  */
-public class GroupFacade {
+public class CarFacade {
 
-    private static GroupFacade instance;
+    private static CarFacade instance;
     private static EntityManagerFactory emf;
     
     //Private Constructor to ensure Singleton
-    private GroupFacade() {}
+    private CarFacade() {}
     
     
     /**
@@ -25,7 +24,7 @@ public class GroupFacade {
      * @param _emf
      * @return an instance of this facade class.
      */
-    public static GroupFacade getMovieFacade(EntityManagerFactory _emf) {
+    public static GroupFacade getCarFacade(EntityManagerFactory _emf) {
         if (instance == null) {
             emf = _emf;
             instance = new GroupFacade();

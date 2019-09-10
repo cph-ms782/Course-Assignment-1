@@ -2,7 +2,7 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dto.CarsDTO;
+import dto.CarDTO;
 import entities.Car;
 import utils.EMF_Creator;
 import facades.CarFacade;
@@ -18,6 +18,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+/**
+ * 
+ * @author martin
+ */
 @Path("cars")
 public class CarResource {
 
@@ -40,10 +44,8 @@ public class CarResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getAllMovies() {
-//    public Response getAllMovies() {
         List<Car> list = FACADE.allCars();
-        return GSON.toJson(new CarsDTO(list));
-//        return Response.ok().entity(GSON.toJson(new CarsDTO(list))).build();
+        return GSON.toJson(new CarDTO(list));
     }
     
     @Path("count")
@@ -60,7 +62,7 @@ public class CarResource {
     @Produces({MediaType.APPLICATION_JSON})
     public String getCarsPerYear(@PathParam("id") Long id) {
         Car cars = FACADE.findByID(id);
-        return GSON.toJson(new CarsDTO(cars));
+        return GSON.toJson(new CarDTO(cars));
     }
     
     @Path("year/{year}")
@@ -68,7 +70,7 @@ public class CarResource {
     @Produces({MediaType.APPLICATION_JSON})
     public String getMoviesPerYear(@PathParam("year") int year) {
         List<Car> list = FACADE.findByYear(year);
-        return GSON.toJson(new CarsDTO(list));
+        return GSON.toJson(new CarDTO(list));
     }
     
     @Path("movie/{title}")
@@ -76,7 +78,7 @@ public class CarResource {
     @Produces({MediaType.APPLICATION_JSON})
     public String getMoviesPerTitle(@PathParam("title") String title) {
         List<Car> list = FACADE.findByTitle(title);
-        return GSON.toJson(new CarsDTO(list));
+        return GSON.toJson(new CarDTO(list));
     }
     
     @Path("fill")
