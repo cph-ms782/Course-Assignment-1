@@ -1,6 +1,6 @@
 package dto;
 
-import entities.Cars;
+import entities.Car;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,42 +8,58 @@ import java.util.List;
  *
  * @author msi
  */
-public class CarsDTO {
+public class CarDTO {
 
-    private Long id;
-    private String title;
+    private Long carID;
     private int year;
-    private List<Cars> list;
+    private String make;
+    private String model;
+    private int price;
 
-    public CarsDTO(Cars m) {
-        this.id = m.getId();
-//        this.title = m.getTitle();
-//        this.year = m.getYear();
+    private List<Car> list;
+
+    public CarDTO(Car m) {
+        this.carID = m.getId();
+        this.year = m.getYear();
+        this.make = m.getMake();
+        this.price = m.getPrice();
     }
 
-    public CarsDTO(List<Cars> listCars) {
+    /**
+     * Constructor for handling list of cars
+     * @param listCars 
+     */
+    public CarDTO(List<Car> listCars) {
         list = new ArrayList();
-        for (Cars car : listCars) {
+        for (Car car : listCars) {
             this.list.add(car);
         }
     }
-    
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setId(Long carID) {
+        this.carID = carID;
     }
 
     public void setYear(int year) {
         this.year = year;
     }
 
-    public void setList(List<Cars> listCars) {
-        for (Cars car : listCars) {
+    public void setMake(String make) {
+        this.make = make;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public void setList(List<Car> listCars) {
+        listCars.forEach((car) -> {
             this.list.add(car);
-        }
+        });
     }
 
 }
