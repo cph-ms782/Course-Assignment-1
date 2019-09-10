@@ -6,14 +6,14 @@
 dist: bionic
 
 language: java
-#jdk: oraclejdk9
+jdk: oraclejdk9
 
 cache:
   directories:  
     - $HOME/.m2
 
 script:
-  - mvn test
+  - mvn clean test
   - mvn -Dremote.user=$REMOTE_USER -Dremote.password=$REMOTE_PW tomcat7:deploy
 
 services:
