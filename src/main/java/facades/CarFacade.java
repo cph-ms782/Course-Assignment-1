@@ -61,15 +61,6 @@ public class CarFacade {
         }
     }
 
-    public Car findByID(Long id) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            Car c = em.find(Car.class, id);
-            return c;
-        } finally {
-            em.close();
-        }
-    }
 
     public Long getNumberOfCars() {
         EntityManager em = emf.createEntityManager();
@@ -91,35 +82,5 @@ public class CarFacade {
             em.close();
         }
     }
-
-    public List<Car> findByTitle(String title) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            TypedQuery<Car> query
-                    = em.createQuery("Select c from Car c where c.title = :title", Car.class)
-                    .setParameter("title", title);
-            return query.getResultList();
-        } finally {
-            em.close();
-        }
-    }
-
-    public List<Car> findByYear(int year) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            TypedQuery<Car> query
-                    = em.createQuery("Select c from Car c where c.year = :year", Car.class)
-                    .setParameter("year", year);
-            return query.getResultList();
-        } finally {
-            em.close();
-        }
-    }
-    
-    
-    public static void main(String[] args) {
-        
-    }
-    
     
 }
