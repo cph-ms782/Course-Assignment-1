@@ -122,8 +122,6 @@ public class CarResourceTest {
     }
 
     /**
-     * Create a test for the endpoint: api/movie/count (expected result, depends
-     * on how many movies you created before each test ).
      *
      * @throws Exception
      */
@@ -139,12 +137,6 @@ public class CarResourceTest {
     }
 
     /**
-     * Create a test for the endpoint api/movie/all and assert that the body
-     * contains an actor named Freddy Frøstrup (or just an actor added by your
-     * BEFORE code)
-     *
-     * OBS Jeg brugte andre fields end i opgaven. Så har søgt på årstal istedet
-     *
      * @throws Exception
      */
     @Test
@@ -156,31 +148,6 @@ public class CarResourceTest {
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("list.year", hasItems(1975, 1978));
-
-    }
-
-    /**
-     * Create a test for the an endpoint: api/movie/{id} and verify that you get
- the expected Car
-     *
-     * @throws Exception
-     */
-//    @Disabled
-    @Test
-    public void testGetID() throws Exception {
-        System.out.println("testGetID");
-        Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-        List<Car> list = new ArrayList();
-        CarFacade FACADE = CarFacade.getCarFacade(emf);
-        Car g = FACADE.findByID(Long.valueOf(1));
-        // text in console to find DB id before text. Helps with debugging
-//        System.out.println("testGetID resultat: " + g.getId() +" " + g.getTitle());
-        given()
-                .contentType("application/json")
-                .get("/movies/1").then()
-                .assertThat()
-                .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("id", equalTo(1));
     }
 
 }
