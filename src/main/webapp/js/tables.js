@@ -20,6 +20,7 @@ function GenerateTable() {
     //Add the header row.
     var row = table.insertRow(-1);
     console.log("customers[0] : " + customers[0]);
+    var cust = (customer => customer)
     for (var cust in customers[0]) {
         console.log("header : " + cust);
         var headerCell = document.createElement("TH");
