@@ -1,93 +1,42 @@
 /**
- * 
+ * jsonList2Table converts a json-list into a html table
+ * and places it at the html tag position
+ * arguments: a jsonlist and the tag identifier
  */
-function GenerateTable() {
-    //Build an array containing Customer records.
-    var customers = new Array();
-    customers.push(["Customer Id", "Name", "Country"]);
-    customers.push([1, "John Hammond", "United States"]);
-    customers.push([2, "Mudassar Khan", "India"]);
-    customers.push([3, "Suzanne Mathews", "France"]);
-    customers.push([4, "Robert Schidner", "Russia"]);
+function jsonList2Table(jsonList, htmlTag) {
+//    console.log("jsonList: " + jsonList);
 
     //Create a HTML Table element.
     var table = document.createElement("TABLE");
-    table.border = "1";
+    table.setAttribute("class", "table");
 
-    //Get the count of columns.
-    var columnCount = customers[0].length;
-
-    //Add the header row.
+    //insert empty row.
     var row = table.insertRow(-1);
-    console.log("customers[0] : " + customers[0]);
-    var cust = (customer => customer)
-    for (var cust in customers[0]) {
-        console.log("header : " + cust);
+
+    //insert header cell elements
+    // it uses the first entry to get object properties
+    Object.keys(jsonList[0]).forEach(function (item) {
+//        console.log("item: " + item);
         var headerCell = document.createElement("TH");
-        var text = document.createTextNode(cust);
+        var text = document.createTextNode(item);
         headerCell.appendChild(text);
         row.appendChild(headerCell);
-    }
-
-    //Add the header row.
-//        var row = table.insertRow(-1);
-//        for (var i = 0; i < columnCount; i++) {
-//            var headerCell = document.createElement("TH");
-//            headerCell.innerHTML = customers[0][i];
-//            row.appendChild(headerCell);
-//        }
+    });
 
     //Add the data rows.
-    for (var i = 1; i < customers.length; i++) {
-        row = table.insertRow(-1);
-        for (var j = 0; j < columnCount; j++) {
-            var cell = row.insertCell(-1);
-            cell.innerHTML = customers[i][j];
-        }
-    }
+    jsonList.forEach(function (listItem, index) {
+//        console.log("listItem.carID: " + listItem.carID);
 
-    var dvTable = document.getElementById("content");
+        row = table.insertRow(-1);
+        Object.keys(listItem).forEach(function (parts) {
+//            console.log("listItem[parts]: " + listItem[parts]);
+            var cell = row.insertCell(-1);
+            var text = document.createTextNode(listItem[parts]);
+            cell.appendChild(text);
+        });
+    });
+    
+    var dvTable = document.querySelector(htmlTag);
     dvTable.innerHTML = "";
     dvTable.appendChild(table);
 }
-
-//table.push("<thead><tr>    <th>Title:</th> <th>Year:</th> </th>      </tr></thead>");
-
-function list2Table(list) {
-
-    var tags = makeTableHeader();
-    console.log("Efter header: " + tags);
-
-    makeTableBody(tags);
-    console.log("Efter body: " + tags);
-    document.querySelector("#content").appendChild(tags);
-}
-
-function makeTableHeader() {
-    var obj = {hejsa: 234, listen: "hujsa"};
-
-    var node = document.createElement("thead");
-    var nodeRow = document.createElement("tr");
-    node.appendChild(nodeRow);
-
-    var th;
-    for (var item in obj) {
-        th = document.createElement("th");
-        var nodeCell = document.createTextNode(item);
-//        th.lastElementChild.appendChild(nodeCell);
-    }
-
-    nodeRow.appendChild(th);
-
-    console.log("Table header tags: " + node.toString());
-
-    return node;
-}
-
-function makeTableBody(tags) {
-
-    return tags;
-}
-
-list2Table("");
-GenerateTable();
