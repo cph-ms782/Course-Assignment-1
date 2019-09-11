@@ -26,7 +26,9 @@ GROUPPAGE.onclick = function (e) {
     //let url = "https://www.sandersolutions.dk/CAone/api/groupmembers/all";
     
     //local url
-    let url = "http://localhost:8080/caone/api/groupmembers/all";
+    //let url = "http://localhost:8080/caone/api/groupmembers/all";
+    
+    let url = "/caone/api/groupmembers/all";
     fetch(url)
             .then(res => res.json()) //in flow1, just do it
             .then(data => {
