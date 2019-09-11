@@ -8,6 +8,8 @@ function jsonList2Table(jsonList, htmlTag) {
 
     //Create a HTML Table element.
     var table = document.createElement("TABLE");
+    
+    // insert table class for bootstrap goodies
     table.setAttribute("class", "table");
 
     //insert empty row.
