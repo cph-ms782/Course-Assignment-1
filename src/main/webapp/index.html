@@ -10,40 +10,16 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-        <style>
-            .form{display: block;
-                  text-align: center;
-            }
-
-            form
-            {
-                display: inline-block;
-                margin-left: auto;
-                margin-right: auto;
-                text-align: center;   
-            }
-            th, td{
-                text-align: left;
-                border: 1px solid #ddd;
-                padding: 8px;
-                width: 1px;
-            }
-        </style>
     </head>
     <body>
-        <H1>Text</H1>
-        <div class="form">
-            <form>
-                <input id="userID" type="text" name="user">
-                <button id="getUser">Get Car</button>
-                <button id="getAllUsers">Get All Cars</button>
-            </form> 
-        </div>
-        <div class="form">
-            <div id="users" class="container tablewid"></div>
-        </div>
-
+        <button id="groupPage">Group</button>
+        <button id="jokePage">Jokes</button>
+        <button id="carPage">Cars</button>
+        <h1 id="h1content"></h1>
+        <h3 id="h3content"></h3>
+        <div id="content"></div>
         <!-- henter javascript del -->
         <script src="FetchCars.js"></script>
+        <script src="FetchGroupMembers.js"></script>
     </body>
 </html>
