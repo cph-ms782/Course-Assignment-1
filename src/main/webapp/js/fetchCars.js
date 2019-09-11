@@ -3,7 +3,7 @@
  */
 function getAllCars(e) {
     e.preventDefault();
-    let url = "/caone/api/cars/all";
+    let url = "/CAone/api/cars/all";
 //    console.log(url);
     fetch(url)
             .then(res => res.json())
@@ -16,7 +16,6 @@ function getAllCars(e) {
                  * arguments: a jsonlist and the tag identifier
                  */
                 jsonList2Table(data, "#content");
-                document.querySelector("#content TABLE").classList.add = "table";
             });
 }
 
