@@ -20,6 +20,9 @@ function jsonList2Table(jsonList, htmlTag) {
     Object.keys(jsonList[0]).forEach(function (item) {
 //        console.log("item: " + item);
         var headerCell = document.createElement("TH");
+        
+        //create id for header. ID is the same as the content
+        headerCell.setAttribute("id", item);
         var text = document.createTextNode(item);
         headerCell.appendChild(text);
         row.appendChild(headerCell);
