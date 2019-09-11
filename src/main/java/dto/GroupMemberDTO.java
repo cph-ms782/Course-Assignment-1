@@ -12,7 +12,7 @@ public class GroupMemberDTO {
     public GroupMemberDTO(GroupMember groupMember) {
         this.name = groupMember.getName();
         this.color = groupMember.getColor();
-        this.studentID = Math.toIntExact(studentID);
+        this.studentID = Math.toIntExact(groupMember.getId());
     }
     
 }
