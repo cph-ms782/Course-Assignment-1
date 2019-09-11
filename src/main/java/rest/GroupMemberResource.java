@@ -3,7 +3,11 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dto.GroupMemberDTO;
+import entities.GroupMember;
 import facades.GroupMemberFacade;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -32,7 +36,12 @@ public class GroupMemberResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getAllGroupMembers(){
-        return GSON.toJson(FACADE.allGroupMembers());
+        List<GroupMemberDTO> dtos = new ArrayList<>();
+        List<GroupMember> members = FACADE.allGroupMembers();
+        for (GroupMember member : members) {
+            dtos.add(new GroupMemberDTO(member));
+        }
+        return GSON.toJson(dtos);
     }
     
     @Path("fill")
