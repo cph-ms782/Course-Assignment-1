@@ -144,7 +144,7 @@ public class CarResourceTest {
                 .get("/cars/all").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("list.year", hasItems(1980, 1975, 1970));
+                .body("year", hasItems(1980, 1975, 1970));
     }
 
 }

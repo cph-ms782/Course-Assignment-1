@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  *
- * @author msi
+ * @author martin
  */
 public class CarDTO {
 
@@ -23,17 +23,6 @@ public class CarDTO {
         this.year = m.getYear();
         this.make = m.getMake();
         this.price = m.getPrice();
-    }
-
-    /**
-     * Constructor for handling list of cars
-     * @param listCars 
-     */
-    public CarDTO(List<Car> listCars) {
-        list = new ArrayList();
-        for (Car car : listCars) {
-            this.list.add(car);
-        }
     }
 
     public void setId(Long carID) {
