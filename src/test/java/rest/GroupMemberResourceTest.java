@@ -1,37 +1,31 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package facades;
+
+package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import entities.GroupMember;
 import io.restassured.RestAssured;
+import static io.restassured.RestAssured.given;
 import io.restassured.parsing.Parser;
 import java.net.URI;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.UriBuilder;
 import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.grizzly.http.util.HttpStatus;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItems;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import rest.ApplicationConfig;
 import utils.EMF_Creator;
 
-/**
- *
- * @author frede
- */
-public class GroupMemberFacadeTest {
+public class GroupMemberResourceTest {
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/api";
     //Read this line from a settings-file  since used several places
@@ -41,18 +35,19 @@ public class GroupMemberFacadeTest {
     private static HttpServer httpServer;
     private static EntityManagerFactory emf;
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    
+
     static HttpServer startServer() {
         ResourceConfig rc = ResourceConfig.forApplication(new ApplicationConfig());
         return GrizzlyHttpServerFactory.createHttpServer(BASE_URI, rc);
     }
     
-    public GroupMemberFacadeTest() {
+    public GroupMemberResourceTest() {
     }
     
     @BeforeAll
     public static void setUpClass() {
         emf = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.TEST, EMF_Creator.Strategy.DROP_AND_CREATE);
+
         //NOT Required if you use the version of EMF_Creator.createEntityManagerFactory used above        
         //System.setProperty("IS_TEST", TEST_DB);
         //We are using the database on the virtual Vagrant image, so username password are the same for all dev-databases
@@ -86,38 +81,55 @@ public class GroupMemberFacadeTest {
         }
     }
     
-    @AfterEach
-    public void tearDown() {
-    }
-
+//    @AfterEach
+//    public void tearDown() {
+//    }
 
     /**
-     * Test of addGroupMember method, of class GroupMemberFacade.
-     * Tests if the created groupmember recieves and ID
+     * Tests if the server is up.
+     * 
+     * Frederik
+     */
+   @Test
+    public void testServerIsUp() {
+        System.out.println("Testing is server UP");
+        given().when().get("/groupmembers").then().statusCode(200);
+    }
+    
+    
+    /**
+     * Tests if we get the right message when we access the root of the REST endpoint.
+     * @throws Exception 
      * 
      * Frederik
      */
     @Test
-    public void testAddGroupMember() {
-        System.out.println("addGroupMember");
-        GroupMemberFacade gmf = GroupMemberFacade.getGroupMemberFacade(emf);
-        Long groupMemberID = gmf.addGroupMember("a", "b", 1, "s").getId();
-        System.out.println(groupMemberID);
-        assertNotNull(groupMemberID);
+    public void testDummyMsg() throws Exception {
+        given()
+        .contentType("application/json")
+        .get("/groupmembers/").then()
+        .assertThat()
+        .statusCode(HttpStatus.OK_200.getStatusCode())
+        .body("msg", equalTo("Hello World"));   
     }
 
     /**
-     * Test of allGroupMembers method, of class GroupMemberFacade.
-     * Tests if we get two groupMembers when we ask for all.
+     * Test of getAllGroupMembers method, of class GroupMemberResource.
+     * Tests if we have two items with the right names.
      * 
      * Frederik
      */
     @Test
-    public void testAllGroupMembers() {
-        System.out.println("allGroupMembers");
-        GroupMemberFacade gmf = GroupMemberFacade.getGroupMemberFacade(emf);
-        List<GroupMember> result = gmf.allGroupMembers();
-        assertEquals(2, result.size());
+    public void testGetAllGroupMembers() {
+        System.out.println("getAllGroupMembers");
+        given()
+                .contentType("application/json")
+                .get("/groupmembers/all")
+                .then().log().body().assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("name", hasItems("test","ttt"));
     }
+
+
     
 }
