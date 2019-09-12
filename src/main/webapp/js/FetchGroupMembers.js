@@ -23,13 +23,7 @@ function groupMembersToTable(groupMembers) {
 }
 
 GROUPPAGE.onclick = function (e) {
-    e.preventDefault();
-    //deployed url
-    //let url = "https://www.sandersolutions.dk/CAone/api/groupmembers/all";
-    
-    //local url
-    //let url = "http://localhost:8080/caone/api/groupmembers/all";
-    
+    e.preventDefault();   
     let url = "/CAone/api/groupmembers/all";
     fetch(url)
             .then(res => res.json()) //in flow1, just do it
@@ -39,11 +33,12 @@ GROUPPAGE.onclick = function (e) {
                 CONTENT.innerHTML = groupMembersToTable(data);
                 H1CMEMBERS.innerHTML = "This is our group";
                 H3CMEMBERS.innerHTML = "These are our members";
+                document.querySelector("#jokeButtons").style = "display: none;";
                 /* data now contains the response, converted to JavaScript
                  Observe the output from the log-output above
                  Now, just build your DOM changes using the data*/
-            })
-}
+            });
+};
 
 function sortByLetters(n) {
   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;

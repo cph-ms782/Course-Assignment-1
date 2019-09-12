@@ -5,6 +5,7 @@ const JOKEBYID = document.querySelector("#jokeByIdButton");
 const JOKEID = document.querySelector("#jokeId");
 const H1CJOKES = document.querySelector("#h1content");
 const H3CJOKES = document.querySelector("#h3content");
+const JOKEBUTTONS = document.querySelector("#jokeButtons");
 
 
 /**
@@ -20,9 +21,7 @@ function jokesToTable(jokes) {
     return tableContent.join('');
 };
 
-function jokeByIdButton(){
-    return "<form> Joke ID: <input type=\"text\" id=\"jokeId\"> <input type=\"submit\" id=\"jokeByIdButton\" value=\"Get a joke\"></form>"
-}
+
 
 
 JOKESPAGE.onclick = function (e) {
@@ -34,7 +33,7 @@ JOKESPAGE.onclick = function (e) {
                 // Inside this callback, and only here, the response data is available
                 console.log("data", data);
                 JOKECONTENT.innerHTML = jokesToTable(data);
-                JOKECONTENT.innerHTML += jokeByIdButton();
+                JOKEBUTTONS.style = "";
                 H1CJOKES.innerHTML = "These are our jokes";
                 H3CJOKES.innerHTML = " ";
                 /* data now contains the response, converted to JavaScript
@@ -53,9 +52,8 @@ JOKEBYID.onclick = function(e) {
                 // Inside this callback, and only here, the response data is available
                 console.log("data", data);
                 JOKECONTENT.innerHTML = "<p>" + data.joke + "</p>";
-                JOKECONTENT.innerHTML += jokeByIdButton();
                 /* data now contains the response, converted to JavaScript
                  Observe the output from the log-output above
                  Now, just build your DOM changes using the data*/
             });
-}
+};
