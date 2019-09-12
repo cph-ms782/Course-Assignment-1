@@ -2,14 +2,15 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dto.CarsDTO;
-import entities.Cars;
-import facades.CarsFacade;
+import dto.CarDTO;
+import entities.Car;
+import facades.CarFacade;
 import utils.EMF_Creator;
 import io.restassured.RestAssured;
 import static io.restassured.RestAssured.given;
 import io.restassured.parsing.Parser;
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -30,8 +31,8 @@ import utils.EMF_Creator.DbSelector;
 import utils.EMF_Creator.Strategy;
 
 //Uncomment the line below, to temporarily disable this test
-@Disabled
-public class CarsResourceTest {
+//@Disabled
+public class CarResourceTest {
 
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/api";
@@ -41,9 +42,9 @@ public class CarsResourceTest {
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     private static HttpServer httpServer;
     private static EntityManagerFactory emf;
-//    private final Cars m1 = new Cars("Some txt", 1978);
-//    private final Cars m2 = new Cars("aaaaaaaa", 1975);
-//    private final Cars m3 = new Cars("bbbb", 1973);
+    private final Car m1 = new Car(1980, "Volvo", "m1", 2000, LocalDate.of(2012, 12, 05), "F", "N");
+    private final Car m2 = new Car(1975, "BMW", "m2", 2010, LocalDate.of(2013, 11, 05), "E", "S");
+    private final Car m3 = new Car(1970, "Toyota", "m3", 2015, LocalDate.of(2011, 1, 1), "D", "A");
 
     static HttpServer startServer() {
         ResourceConfig rc = ResourceConfig.forApplication(new ApplicationConfig());
@@ -53,10 +54,6 @@ public class CarsResourceTest {
     @BeforeAll
     public static void setUpClass() {
         emf = EMF_Creator.createEntityManagerFactory(DbSelector.TEST, Strategy.DROP_AND_CREATE);
-
-        //NOT Required if you use the version of EMF_Creator.createEntityManagerFactory used above        
-        //System.setProperty("IS_TEST", TEST_DB);
-        //We are using the database on the virtual Vagrant image, so username password are the same for all dev-databases
         httpServer = startServer();
 
         //Setup RestAssured
@@ -78,11 +75,11 @@ public class CarsResourceTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-//            em.createNamedQuery("Cars.deleteAllRows").executeUpdate();
-            em.createNativeQuery("DELETE FROM MOVIE").executeUpdate();
-//            em.persist(m1);
-//            em.persist(m2);
-//            em.persist(m3);
+            em.createNamedQuery("Car.deleteAllRows").executeUpdate();
+//            em.createNativeQuery("DELETE FROM Car").executeUpdate();
+            em.persist(m1);
+            em.persist(m2);
+            em.persist(m3);
 
             em.getTransaction().commit();
         } finally {
@@ -100,7 +97,7 @@ public class CarsResourceTest {
         System.out.println("Testing is server UP");
         given()
                 .when()
-                .get("/movies")
+                .get("/cars")
                 .then()
                 .statusCode(200);
     }
@@ -115,15 +112,13 @@ public class CarsResourceTest {
         System.out.println("testDummyMsg");
         given()
                 .contentType("application/json")
-                .get("/movies/").then()
+                .get("/cars/").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("msg", equalTo("Hello World"));
     }
 
     /**
-     * Create a test for the endpoint: api/movie/count (expected result, depends
-     * on how many movies you created before each test ).
      *
      * @throws Exception
      */
@@ -132,19 +127,13 @@ public class CarsResourceTest {
         System.out.println("testCount");
         given()
                 .contentType("application/json")
-                .get("/movies/count").then()
+                .get("/cars/count").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("count", equalTo(3));
     }
 
     /**
-     * Create a test for the endpoint api/movie/all and assert that the body
-     * contains an actor named Freddy Frøstrup (or just an actor added by your
-     * BEFORE code)
-     *
-     * OBS Jeg brugte andre fields end i opgaven. Så har søgt på årstal istedet
-     *
      * @throws Exception
      */
     @Test
@@ -152,67 +141,10 @@ public class CarsResourceTest {
         System.out.println("testGetAll");
         given()
                 .contentType("application/json")
-                .get("/movies/all").then()
+                .get("/cars/all").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("list.year", hasItems(1975, 1978));
-
-    }
-
-    /**
-     * Create a test for an endpoint: api/movie/name/{name}. Use a name you know
-     * exists, and (for red students) also try with a name that does not exist
-     * (obviously this requires that you know what you return in such a case)
-     *
-     * OBS søger på film titel i stedet for skuespiller navn
-     *
-     * @throws Exception
-     */
-    @Test
-    public void testGetName() throws Exception {
-        System.out.println("testGetName");
-        given()
-                .contentType("application/json")
-                .get("/movies/movie/aaaaaaaa").then()
-                .assertThat()
-                .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("list.title", hasItems("aaaaaaaa"));
-    }
-
-    @Test
-    public void testGetWrongName() throws Exception {
-        System.out.println("testGetWrongName");
-        List<Cars> list = new ArrayList();
-        given()
-                .contentType("application/json")
-                .get("/movies/movie/Hansens").then()
-                .assertThat()
-                .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("list.title", hasItems(list.toArray()));
-    }
-
-    /**
-     * Create a test for the an endpoint: api/movie/{id} and verify that you get
- the expected Cars
-     *
-     * @throws Exception
-     */
-//    @Disabled
-    @Test
-    public void testGetID() throws Exception {
-        System.out.println("testGetID");
-        Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-        List<Cars> list = new ArrayList();
-        CarsFacade FACADE = CarsFacade.getMovieFacade(emf);
-        Cars g = FACADE.findByID(Long.valueOf(1));
-        // text in console to find DB id before text. Helps with debugging
-//        System.out.println("testGetID resultat: " + g.getId() +" " + g.getTitle());
-        given()
-                .contentType("application/json")
-                .get("/movies/1").then()
-                .assertThat()
-                .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("id", equalTo(1));
+                .body("year", hasItems(1980, 1975, 1970));
     }
 
 }

@@ -10,43 +10,27 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-        <style>
-            .form{display: block;
-                  text-align: center;
-            }
 
-            form
-            {
-                display: inline-block;
-                margin-left: auto;
-                margin-right: auto;
-                text-align: center;   
-            }
-            th, td{
-                text-align: left;
-                border: 1px solid #ddd;
-                padding: 8px;
-                width: 1px;
-            }
-        </style>
+        <!-- importing javascripts -->
+        <script src="js/tables.js" defer></script>
+        <script src="js/fetchCars.js" defer></script>
+        <script src="js/FetchGroupMembers.js" defer></script>
+        <script src="js/fetchJokes.js" defer></script>
     </head>
-    <body>
+
+    <body onload="startUp()">
         <button id="groupPage">Group</button>
         <button id="jokePage">Jokes</button>
         <button id="carPage">Cars</button>
-        <h1 id="h1content">Group</h1>
-        <h3 id="h3content">This is out group</h3>
-        <div class="form">
-            <form>
-                <input id="userID" type="text" name="user">
-                <button id="getUser"></button>
-                <button id="getAllUsers"></button>
-            </form> 
+        <h1 id="h1content"></h1>
+        <h3 id="h3content"></h3>
+        <div id="content"></div>
+        <div id="jokeButtons" style="display: none;">
+        <form> Joke ID: <input type="text" id="jokeId"> 
+            <input type="submit" id="jokeByIdButton" value="Get a joke"><br><br>
+            <input type="submit" id="randomJokeButton" value="Get random joke">
+        </form>
         </div>
-        <div class="form">
-            <div id="users" class="container tablewid"></div>
-        </div>
-        <!-- henter javascript del -->
-        <script src="FetchCars.js"></script>
+
     </body>
 </html>

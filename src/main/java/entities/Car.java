@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,27 +9,30 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 
-
+/**
+ * 
+ * @author martin
+ */
 @Entity
-@NamedQuery(name = "Cars.deleteAllRows", query = "DELETE from Cars")
-public class Cars implements Serializable {
+@NamedQuery(name = "Car.deleteAllRows", query = "DELETE from Car")
+public class Car implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long carID;
     private int year;
     private String make;
     private String model;
     private int price;
-    private String created;
+    private LocalDate created;
     private String owner;
     private String notes;
     
-    public Cars() {
+    public Car() {
     }
 
-    public Cars(int year, String make, String model, int price, String created, String owner, String notes) {
+    public Car(int year, String make, String model, int price, LocalDate created, String owner, String notes) {
         this.year = year;
         this.make = make;
         this.model = model;
@@ -39,11 +43,11 @@ public class Cars implements Serializable {
     }
 
     public Long getId() {
-        return id;
+        return carID;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long carID) {
+        this.carID = carID;
     }
 
     public int getYear() {
@@ -78,11 +82,11 @@ public class Cars implements Serializable {
         this.price = price;
     }
 
-    public String getCreated() {
+    public LocalDate getCreated() {
         return created;
     }
 
-    public void setCreated(String created) {
+    public void setCreated(LocalDate created) {
         this.created = created;
     }
 

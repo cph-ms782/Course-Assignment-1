@@ -1,6 +1,7 @@
 package facades;
 
-import entities.Cars;
+import entities.Car;
+import java.time.LocalDate;
 import utils.EMF_Creator;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,25 +15,15 @@ import org.junit.jupiter.api.Test;
 import utils.EMF_Creator.DbSelector;
 import utils.EMF_Creator.Strategy;
 
-//Uncomment the line below, to temporarily disable this test
-@Disabled
-public class MovieFacadeTest {
+//@Disabled
+public class CarFacadeTest {
 
     private static EntityManagerFactory emf;
-    private static CarsFacade facade;
+    private static CarFacade facade;
+    private static Car m1 = new Car(1980, "Volvo", "m1", 2000, LocalDate.of(2012, 12, 05), "F", "N");
+    private static Car m2 = new Car(1975, "BMW", "m2", 2010, LocalDate.of(2013, 11, 05), "E", "S");
 
-    public MovieFacadeTest() {
-    }
-
-    //@BeforeAll
-    public static void setUpClass() {
-        emf = EMF_Creator.createEntityManagerFactory(
-                "pu",
-                "jdbc:mysql://localhost:3307/movie_test",
-                "dev",
-                "ax2",
-                EMF_Creator.Strategy.CREATE);
-        facade = CarsFacade.getMovieFacade(emf);
+    public CarFacadeTest() {
     }
 
     /*   **** HINT **** 
@@ -42,9 +33,9 @@ public class MovieFacadeTest {
         See below for how to use these files. This is our RECOMMENDED strategy
      */
     @BeforeAll
-    public static void setUpClassV2() {
-       emf = EMF_Creator.createEntityManagerFactory(DbSelector.TEST,Strategy.DROP_AND_CREATE);
-       facade = CarsFacade.getMovieFacade(emf);
+    public static void setUpClass() {
+        emf = EMF_Creator.createEntityManagerFactory(DbSelector.TEST, Strategy.DROP_AND_CREATE);
+        facade = CarFacade.getCarFacade(emf);
     }
 
     @AfterAll
@@ -58,11 +49,13 @@ public class MovieFacadeTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
-//            em.persist(new Cars("Some txt", 1978));
-//            em.persist(new Cars("aaa", 1975));
+            em.createNamedQuery("Car.deleteAllRows").executeUpdate();
+//            em.createNativeQuery("DELETE FROM Car").executeUpdate();
+            em.persist(m1);
+            em.persist(m2);
 
             em.getTransaction().commit();
+        } catch (Exception e) {
         } finally {
             em.close();
         }
@@ -75,7 +68,12 @@ public class MovieFacadeTest {
 
     @Test
     public void testAFacadeMethod() {
-//        assertEquals(2, facade.getMovieCount(), "Expects two rows in the database");
+        assertEquals(2, facade.getCarsCount(), "Expects two rows in the database");
+    }
+
+    @Test
+    public void allCars() {
+        assertEquals(2, facade.allCars().size(), "Expects two rows in the database");
     }
 
 }
