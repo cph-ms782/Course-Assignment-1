@@ -1,6 +1,8 @@
 //Constants for all DOM elements im manipulating
 const GROUPPAGE = document.querySelector("#groupPage");
 const CONTENT = document.querySelector("#content");
+const H1CMEMBERS = document.querySelector("#h1content");
+const H3CMEMBERS = document.querySelector("#h3content");
 
 /**
  * Method for converting an array of GroupMembers to a HTML string
@@ -35,6 +37,8 @@ GROUPPAGE.onclick = function (e) {
                 // Inside this callback, and only here, the response data is available
                 console.log("data", data);
                 CONTENT.innerHTML = groupMembersToTable(data);
+                H1CMEMBERS.innerHTML = "This is our group";
+                H3CMEMBERS.innerHTML = "These are our members";
                 /* data now contains the response, converted to JavaScript
                  Observe the output from the log-output above
                  Now, just build your DOM changes using the data*/
