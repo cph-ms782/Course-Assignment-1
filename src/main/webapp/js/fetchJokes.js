@@ -1,6 +1,8 @@
 //Constants for all DOM elements im manipulating
 const JOKESPAGE = document.querySelector("#jokePage");
 const JOKECONTENT = document.querySelector("#content");
+const H1CJOKES = document.querySelector("#h1content");
+const H3CJOKES = document.querySelector("#h3content");
 
 /**
  * 
@@ -29,6 +31,8 @@ JOKESPAGE.onclick = function (e) {
                 console.log("data", data);
                 JOKECONTENT.innerHTML = jokesToTable(data);
                 JOKECONTENT.innerHTML += jokeByIdButton();
+                H1CJOKES.innerHTML = "These are our jokes";
+                H3CJOKES.innerHTML = " ";
                 /* data now contains the response, converted to JavaScript
                  Observe the output from the log-output above
                  Now, just build your DOM changes using the data*/
