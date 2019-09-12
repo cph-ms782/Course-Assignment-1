@@ -37,7 +37,7 @@ public class JokeFacade {
     }
 
     public Joke addJoke(String joke, String jokeType, String reference) {
-        Joke j = new Joke(jokeType, jokeType, reference);
+        Joke j = new Joke(joke, jokeType, reference);
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
