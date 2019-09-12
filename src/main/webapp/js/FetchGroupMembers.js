@@ -22,8 +22,8 @@ function groupMembersToTable(groupMembers) {
     return tableinfo.join('');
 }
 
-GROUPPAGE.onclick = function (e) {
-    e.preventDefault();   
+function makeGroupMemberContent(e) {
+    e.preventDefault();
     let url = "/CAone/api/groupmembers/all";
     fetch(url)
             .then(res => res.json()) //in flow1, just do it
@@ -33,13 +33,17 @@ GROUPPAGE.onclick = function (e) {
                 CONTENT.innerHTML = groupMembersToTable(data);
                 H1CMEMBERS.innerHTML = "This is our group";
                 H3CMEMBERS.innerHTML = "These are our members";
-                document.querySelector("#jokeButtons").style = "display: none;";
+
+                document.querySelector("#jokeButtons").style = "display: none;";                
+                
                 /* data now contains the response, converted to JavaScript
                  Observe the output from the log-output above
                  Now, just build your DOM changes using the data*/
             });
-};
+}
 
+
+// We need two almost similar functions because startUp cannot run at start up with e.preventDefault()
 function startUp(e) {
     let url = "/CAone/api/groupmembers/all";
     fetch(url)
@@ -49,7 +53,7 @@ function startUp(e) {
                 console.log("data", data);
                 CONTENT.innerHTML = groupMembersToTable(data);
                 H1CMEMBERS.innerHTML = "This is our group";
-                H3CMEMBERS.innerHTML = "These are our members";
+                H3CMEMBERS.innerHTML = "These are our members"; 
                 /* data now contains the response, converted to JavaScript
                  Observe the output from the log-output above
                  Now, just build your DOM changes using the data*/
@@ -165,6 +169,10 @@ function sortByNumbers(n) {
         }
     }
 }
+
+//Eventlisteners
+
+GROUPPAGE.addEventListener("click", makeGroupMemberContent);
 
 
 
