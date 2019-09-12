@@ -7,7 +7,7 @@ const URL = "/CAone/api/cars/all";
 const CONTENTDIV = document.querySelector("#content");
 var filterNow = false;
 /**
- * Making table of all cars
+ * Making table of all cars. Sorts and filters after which choices has been made
  */
 function getAllCars(e) {
     e.preventDefault();
@@ -29,17 +29,31 @@ function getAllCars(e) {
                  */
                 console.log("data before table.js: " + data +
                         "\ntypeof data: " + typeof data);
-                jsonList2Table(data, "#content");
-                
+                if (typeof data !== 'undefined' && data.length > 0) {
+                    jsonList2Table(data, "#content");
+                } else {
+                    var tableElement = CONTENTDIV.querySelector("table");
+                    if (tableElement !== null) {
+                        CONTENTDIV.querySelector("table").remove();
+                    }
+                    alert("\n\nNo data left!");
+                }
+
                 //For small screens
                 CONTENTDIV.classList.add("table-responsive");
-                
+
                 //Events needs to be added after the table has been written
                 //also changes headliners
                 addEvents();
             });
 }
 
+/**
+ * Sort the data array after which column has been pressed
+ * 
+ * @param {type} event
+ * @param {type} data
+ */
 function sorting(event, data) {
     switch (event.target.innerText) {
         case "price":
@@ -58,6 +72,13 @@ function sorting(event, data) {
     }
 }
 
+/**
+ * Takes input and filters the data array after these inputs
+ * Also makes some minor input checks
+ * 
+ * @param {Array} data
+ * @return {filtering.data|Array}
+ */
 function filtering(data) {
     console.log("data in filtering: " + data);
     var makeInput = document.querySelector("#makeInput").value;
@@ -69,19 +90,13 @@ function filtering(data) {
     //input checks
     if (beforeYearInput < afterYearInput
             && afterYearInput !== "" && beforeYearInput !== "") {
-        alert("'Before year' has to be higher than 'After year'!\n" +
-                "beforeYearInput: " + beforeYearInput +
-                "\afterYearInput: " + afterYearInput
-                );
+        alert("'Before year' has to be higher than 'After year'!");
         return;
     }
 
     if (priceLessInput < priceMoreInput
             && priceMoreInput !== "" && priceLessInput !== "") {
-        alert("'Price less..' has to be higher than 'Price more..'!\n" +
-                "priceMoreInput: " + priceMoreInput +
-                "\npriceLessInput: " + priceLessInput
-                );
+        alert("'Price less..' has to be higher than 'Price more..'!");
         return;
     }
 
@@ -123,6 +138,9 @@ function filtering(data) {
     return data;
 }
 
+/**
+ * events added and some html changes
+ */
 function addEvents() {
     console.log("Adding events");
     document.querySelector("#make").addEventListener("click", getAllCars);
@@ -140,32 +158,46 @@ function addEvents() {
     document.querySelector("#jokeButtons").style = "display: none;";
 }
 
+/**
+ * inserting forms and text on page
+ */
 function insertForms() {
-    CONTENTDIV.appendChild(document.createTextNode("Before year:"));
-    var input = document.createElement("input");
-    input.type = "text";
-    input.id = "beforeYearInput";
-    CONTENTDIV.appendChild(input);
-    CONTENTDIV.appendChild(document.createTextNode("After year:"));
+    
+    // making div to contain all ( for CSS )
+    var inputDiv = document.createElement("DIV");
+    inputDiv.id="inputDiv";
+    CONTENTDIV.appendChild(inputDiv);
+    
+    // inserting text and input fields ( named for CSS )
+    inputDiv.appendChild(document.createTextNode("After year:"));
     var input = document.createElement("input");
     input.type = "text";
     input.id = "afterYearInput";
-    CONTENTDIV.appendChild(input);
-    CONTENTDIV.appendChild(document.createTextNode("Make:"));
+    inputDiv.appendChild(input);
+    
+    inputDiv.appendChild(document.createTextNode("Before year:"));
+    var input = document.createElement("input");
+    input.type = "text";
+    input.id = "beforeYearInput";
+    inputDiv.appendChild(input);
+    
+    inputDiv.appendChild(document.createTextNode("Make:"));
     var input = document.createElement("input");
     input.type = "text";
     input.id = "makeInput";
-    CONTENTDIV.appendChild(input);
-    CONTENTDIV.appendChild(document.createTextNode("Price less than:"));
-    var input = document.createElement("input");
-    input.type = "text";
-    input.id = "priceLessInput";
-    CONTENTDIV.appendChild(input);
-    CONTENTDIV.appendChild(document.createTextNode("Price more than:"));
+    inputDiv.appendChild(input);
+    
+    inputDiv.appendChild(document.createTextNode("Price more than:"));
     var input = document.createElement("input");
     input.type = "text";
     input.id = "priceMoreInput";
-    CONTENTDIV.appendChild(input);
+    inputDiv.appendChild(input);
+    
+    inputDiv.appendChild(document.createTextNode("Price less than:"));
+    var input = document.createElement("input");
+    input.type = "text";
+    input.id = "priceLessInput";
+    inputDiv.appendChild(input);
 }
 
 //Cars button eventlistener
