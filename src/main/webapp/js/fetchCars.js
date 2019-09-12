@@ -30,9 +30,12 @@ function getAllCars(e) {
                 console.log("data before table.js: " + data +
                         "\ntypeof data: " + typeof data);
                 jsonList2Table(data, "#content");
+                
                 //For small screens
                 CONTENTDIV.classList.add("table-responsive");
+                
                 //Events needs to be added after the table has been written
+                //also changes headliners
                 addEvents();
             });
 }
@@ -62,7 +65,7 @@ function filtering(data) {
     var afterYearInput = document.querySelector("#afterYearInput").value;
     var priceLessInput = document.querySelector("#priceLessInput").value;
     var priceMoreInput = document.querySelector("#priceMoreInput").value;
-    
+
     //input checks
     if (beforeYearInput < afterYearInput
             && afterYearInput !== "" && beforeYearInput !== "") {
@@ -72,7 +75,7 @@ function filtering(data) {
                 );
         return;
     }
-    
+
     if (priceLessInput < priceMoreInput
             && priceMoreInput !== "" && priceLessInput !== "") {
         alert("'Price less..' has to be higher than 'Price more..'!\n" +
@@ -81,7 +84,7 @@ function filtering(data) {
                 );
         return;
     }
-    
+
     if (makeInput !== "") {
         let isWhatMake = (car) => {
             return car.make === document.querySelector("#makeInput").value;
@@ -131,6 +134,10 @@ function addEvents() {
     document.querySelector("#makeInput").addEventListener("change", getAllCars);
     document.querySelector("#priceLessInput").addEventListener("change", getAllCars);
     document.querySelector("#priceMoreInput").addEventListener("change", getAllCars);
+
+    document.querySelector("#h1content").innerHTML = "Cars for sale";
+    document.querySelector("#h3content").innerHTML = "Press columns for sorting";
+    document.querySelector("#jokeButtons").style = "display: none;";
 }
 
 function insertForms() {
