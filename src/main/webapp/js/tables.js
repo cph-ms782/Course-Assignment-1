@@ -6,11 +6,17 @@
 function jsonList2Table(jsonList, htmlTag) {
 //    console.log("jsonList: " + jsonList);
 
+    //data check
+//    if (jsonlist.length < 1) {
+//        return;
+//    }
+    
+
     //Create a HTML Table element.
     var table = document.createElement("TABLE");
-    
+
     // insert table class for bootstrap goodies
-    table.setAttribute("class", "table");
+    table.setAttribute("class", "table table-hover table-condensed");
 
     //insert empty row.
     var row = table.insertRow(-1);
@@ -20,7 +26,7 @@ function jsonList2Table(jsonList, htmlTag) {
     Object.keys(jsonList[0]).forEach(function (item) {
 //        console.log("item: " + item);
         var headerCell = document.createElement("TH");
-        
+
         //create id for header. ID is the same as the content
         headerCell.setAttribute("id", item);
         var text = document.createTextNode(item);
@@ -40,8 +46,12 @@ function jsonList2Table(jsonList, htmlTag) {
             cell.appendChild(text);
         });
     });
-    
-    var dvTable = document.querySelector(htmlTag);
-    dvTable.innerHTML = "";
-    dvTable.appendChild(table);
+
+    var divTable = document.querySelector(htmlTag);
+    if (divTable.contains(document.querySelector("table"))) {
+        document.querySelector("table").remove();
+        divTable.appendChild(table);
+    } else {
+        divTable.appendChild(table);
+    }
 }
