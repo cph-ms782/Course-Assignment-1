@@ -4,13 +4,12 @@
  * arguments: a jsonlist and the tag identifier
  */
 function jsonList2Table(jsonList, htmlTag) {
-//    console.log("jsonList: " + jsonList);
-
-    //data check
-//    if (jsonlist.length < 1) {
+    //data check - still not working properly
+    console.log("typeof jsonList: " + typeof jsonList);
+    console.log("jsonList: " + jsonList);
+//    if (jsonlist == null) {
 //        return;
 //    }
-    
 
     //Create a HTML Table element.
     var table = document.createElement("TABLE");
