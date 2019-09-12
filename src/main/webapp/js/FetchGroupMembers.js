@@ -55,8 +55,6 @@ function startUp(e) {
                  Now, just build your DOM changes using the data*/
             });
 }
-            });
-};
 
 function sortByLetters(n) {
     var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
