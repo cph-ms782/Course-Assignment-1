@@ -42,7 +42,7 @@ public class MarvelResource {
     @Path("all")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public String getAllCars() {
+    public String getAllMarvel() {
         List<Marvel> list = FACADE.allMarvel();
         List<MarvelDTO> newList = new ArrayList();
         for (Marvel marvel : list) {
