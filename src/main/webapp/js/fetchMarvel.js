@@ -37,44 +37,11 @@ function insertForms() {
     document.querySelector("#h3content").innerHTML = "";
     document.querySelector("#jokeButtons").style = "display: none;";
     
-    // making div to contain all ( for CSS )
-    var inputDiv = document.createElement("DIV");
-    inputDiv.id="inputDiv";
-    MARVELCONTENTDIV.appendChild(inputDiv);
-    
-    // inserting text and input fields ( named for CSS )
-    inputDiv.appendChild(document.createTextNode("After year:"));
-    var input = document.createElement("input");
-    input.type = "text";
-    input.id = "afterYearInput";
-    inputDiv.appendChild(input);
-    
-    inputDiv.appendChild(document.createTextNode("Before year:"));
-    var input = document.createElement("input");
-    input.type = "text";
-    input.id = "beforeYearInput";
-    inputDiv.appendChild(input);
-    
-    inputDiv.appendChild(document.createTextNode("Make:"));
-    var input = document.createElement("input");
-    input.type = "text";
-    input.id = "makeInput";
-    inputDiv.appendChild(input);
-    
-    inputDiv.appendChild(document.createTextNode("Price more than:"));
-    var input = document.createElement("input");
-    input.type = "text";
-    input.id = "priceMoreInput";
-    inputDiv.appendChild(input);
-    
-    inputDiv.appendChild(document.createTextNode("Price less than:"));
-    var input = document.createElement("input");
-    input.type = "text";
-    input.id = "priceLessInput";
-    inputDiv.appendChild(input);
+
 }
 
 //Cars button eventlistener
+document.querySelector("#marvelPage").addEventListener("click", insertForms);
 document.querySelector("#marvelPage").addEventListener("click", getAllMarvel);
 
 
