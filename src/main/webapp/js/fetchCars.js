@@ -16,6 +16,8 @@ function getAllCars(e) {
     fetch(URL)
             .then(res => res.json())
             .then(data => {
+                CONTENTDIV.innerHTML = "";
+        
                 //sorting arrays
                 sorting(e, data);
 
@@ -162,37 +164,37 @@ function addEvents() {
  * inserting forms and text on page
  */
 function insertForms() {
-    
+
     // making div to contain all ( for CSS )
     var inputDiv = document.createElement("DIV");
-    inputDiv.id="inputDiv";
+    inputDiv.id = "inputDiv";
     CONTENTDIV.appendChild(inputDiv);
-    
+
     // inserting text and input fields ( named for CSS )
     inputDiv.appendChild(document.createTextNode("After year:"));
     var input = document.createElement("input");
     input.type = "text";
     input.id = "afterYearInput";
     inputDiv.appendChild(input);
-    
+
     inputDiv.appendChild(document.createTextNode("Before year:"));
     var input = document.createElement("input");
     input.type = "text";
     input.id = "beforeYearInput";
     inputDiv.appendChild(input);
-    
+
     inputDiv.appendChild(document.createTextNode("Make:"));
     var input = document.createElement("input");
     input.type = "text";
     input.id = "makeInput";
     inputDiv.appendChild(input);
-    
+
     inputDiv.appendChild(document.createTextNode("Price more than:"));
     var input = document.createElement("input");
     input.type = "text";
     input.id = "priceMoreInput";
     inputDiv.appendChild(input);
-    
+
     inputDiv.appendChild(document.createTextNode("Price less than:"));
     var input = document.createElement("input");
     input.type = "text";
@@ -200,7 +202,7 @@ function insertForms() {
     inputDiv.appendChild(input);
 }
 
-//Cars button eventlistener
+//Cars button eventlistener and other DOM manipulations
 document.querySelector("#carPage").addEventListener("click", insertForms);
 document.querySelector("#carPage").addEventListener("click", getAllCars);
 
