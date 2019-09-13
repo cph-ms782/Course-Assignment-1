@@ -10,3 +10,5 @@ The index page starts out with a table of our group members that can be sorted b
 
 On the Joke page you get a table of all the jokes and you can get a joke by id or get a random joke.
 On the car page you first get a table with all the cars, you can then get smaller samples of the table my searching for cars made before or after a certain year, cars made by a specific company and cars that costs more or less than a certain price. You can also sort the table by clicking the table headers.
+
+The groupContract page contains our group contract aswell as addtional information about each group member and what they contributed during the project.
