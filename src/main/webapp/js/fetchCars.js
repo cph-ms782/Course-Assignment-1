@@ -3,21 +3,22 @@
  */
 
 //constants
-const URL = "/CAone/api/cars/all";
+const CARSURL = "/CAone/api/cars/all";
 const CONTENTDIV = document.querySelector("#content");
-var filterNow = false;
+
 /**
  * Making table of all cars. Sorts and filters after which choices has been made
  */
-function getAllCars(e) {
-    e.preventDefault();
-    console.log(e.target.innerText);
+function getAllCars(ev) {
+    ev.preventDefault();
+    console.log(ev.target.innerText);
 
-    fetch(URL)
+    fetch(CARSURL)
             .then(res => res.json())
             .then(data => {
+
                 //sorting arrays
-                sorting(e, data);
+                sorting(ev, data);
 
                 // filtering
                 data = filtering(data);
@@ -152,47 +153,49 @@ function addEvents() {
     document.querySelector("#makeInput").addEventListener("change", getAllCars);
     document.querySelector("#priceLessInput").addEventListener("change", getAllCars);
     document.querySelector("#priceMoreInput").addEventListener("change", getAllCars);
-
-    document.querySelector("#h1content").innerHTML = "Cars for sale";
-    document.querySelector("#h3content").innerHTML = "Press columns for sorting";
-    document.querySelector("#jokeButtons").style = "display: none;";
 }
 
 /**
  * inserting forms and text on page
+ * and updating H1 and H3
  */
 function insertForms() {
-    
+
+    CONTENTDIV.innerHTML = "";
+    document.querySelector("#h1content").innerHTML = "Cars for sale";
+    document.querySelector("#h3content").innerHTML = "Press columns for sorting";
+    document.querySelector("#jokeButtons").style = "display: none;";
+
     // making div to contain all ( for CSS )
     var inputDiv = document.createElement("DIV");
-    inputDiv.id="inputDiv";
+    inputDiv.id = "inputDiv";
     CONTENTDIV.appendChild(inputDiv);
-    
+
     // inserting text and input fields ( named for CSS )
     inputDiv.appendChild(document.createTextNode("After year:"));
     var input = document.createElement("input");
     input.type = "text";
     input.id = "afterYearInput";
     inputDiv.appendChild(input);
-    
+
     inputDiv.appendChild(document.createTextNode("Before year:"));
     var input = document.createElement("input");
     input.type = "text";
     input.id = "beforeYearInput";
     inputDiv.appendChild(input);
-    
+
     inputDiv.appendChild(document.createTextNode("Make:"));
     var input = document.createElement("input");
     input.type = "text";
     input.id = "makeInput";
     inputDiv.appendChild(input);
-    
+
     inputDiv.appendChild(document.createTextNode("Price more than:"));
     var input = document.createElement("input");
     input.type = "text";
     input.id = "priceMoreInput";
     inputDiv.appendChild(input);
-    
+
     inputDiv.appendChild(document.createTextNode("Price less than:"));
     var input = document.createElement("input");
     input.type = "text";
@@ -200,7 +203,7 @@ function insertForms() {
     inputDiv.appendChild(input);
 }
 
-//Cars button eventlistener
+//Cars button eventlistener and other DOM manipulations
 document.querySelector("#carPage").addEventListener("click", insertForms);
 document.querySelector("#carPage").addEventListener("click", getAllCars);
 

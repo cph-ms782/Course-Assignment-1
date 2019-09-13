@@ -2,14 +2,11 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dto.CarDTO;
 import dto.MarvelDTO;
 import entities.Marvel;
 import utils.EMF_Creator;
 import facades.MarvelFacade;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.GET;
@@ -55,7 +52,7 @@ public class MarvelResource {
     @Path("fill")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public String getCarsPerTitle() {
+    public String getMarvelPerTitle() {
         FACADE.addMarvel(2008,"Iron Man");
         FACADE.addMarvel(2008,"The Incredible Hulk");
         FACADE.addMarvel(2010,"Iron Man2");
