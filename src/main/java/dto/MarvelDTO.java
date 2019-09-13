@@ -15,7 +15,7 @@ public class MarvelDTO {
 
     public MarvelDTO(Marvel m) {
         this.marvelID = m.getMarvelID();
-        this.marvelYear = m.getYear();
+        this.marvelYear = m.getMarvelYear();
         this.titel = m.getTitel();
     }
 
@@ -23,8 +23,8 @@ public class MarvelDTO {
         this.marvelID = marvelID;
     }
 
-    public void setYear(int year) {
-        this.marvelYear = year;
+    public void setMarvelYear(int marvelYear) {
+        this.marvelYear = marvelYear;
     }
 
     public void setTitel(String titel) {

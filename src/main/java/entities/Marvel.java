@@ -28,8 +28,8 @@ public class Marvel implements Serializable {
     public Marvel() {
     }
 
-    public Marvel( int year, String titel) {
-        this.marvelYear = year;
+    public Marvel( int marvelYear, String titel) {
+        this.marvelYear = marvelYear;
         this.titel = titel;
     }
 
@@ -41,12 +41,12 @@ public class Marvel implements Serializable {
         this.marvelID = marvelID;
     }
 
-    public int getYear() {
+    public int getMarvelYear() {
         return marvelYear;
     }
 
-    public void setYear(int year) {
-        this.marvelYear = year;
+    public void setMarvelYear(int marvelYear) {
+        this.marvelYear = marvelYear;
     }
 
     public String getTitel() {
