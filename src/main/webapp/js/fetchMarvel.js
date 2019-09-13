@@ -20,7 +20,7 @@ function getAllMarvel(e) {
                  * It converts a json-list into a html table
                  * arguments: a jsonlist and the tag identifier
                  */
-                    jsonList2Table(data, "#content");
+                jsonList2Table(data, "#content");
 
                 //For small screens
                 MARVELCONTENTDIV.classList.add("table-responsive");
@@ -32,11 +32,11 @@ function getAllMarvel(e) {
  * inserting forms and text on page
  */
 function insertForms() {
-
+    MARVELCONTENTDIV.innerHTML = "";
     document.querySelector("#h1content").innerHTML = "Marvel Movies";
     document.querySelector("#h3content").innerHTML = "";
     document.querySelector("#jokeButtons").style = "display: none;";
-    
+
 
 }
 
