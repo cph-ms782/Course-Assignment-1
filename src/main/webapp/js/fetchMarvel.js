@@ -6,7 +6,7 @@
 const MARVELURL = "/CAone/api/marvel/all";
 const MARVELCONTENTDIV = document.querySelector("#content");
 /**
- * Making table of all cars. Sorts and filters after which choices has been made
+ * Making table of all marvel movies. 
  */
 function getAllMarvel(e) {
     e.preventDefault();
