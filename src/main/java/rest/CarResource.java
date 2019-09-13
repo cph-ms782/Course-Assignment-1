@@ -8,7 +8,6 @@ import utils.EMF_Creator;
 import facades.CarFacade;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.GET;

@@ -10,12 +10,12 @@ import java.util.List;
 public class MarvelDTO {
 
     private Long marvelID;
-    private int year;
+    private int marvelYear;
     private String titel;
 
     public MarvelDTO(Marvel m) {
         this.marvelID = m.getMarvelID();
-        this.year = m.getYear();
+        this.marvelYear = m.getYear();
         this.titel = m.getTitel();
     }
 
@@ -24,7 +24,7 @@ public class MarvelDTO {
     }
 
     public void setYear(int year) {
-        this.year = year;
+        this.marvelYear = year;
     }
 
     public void setTitel(String titel) {

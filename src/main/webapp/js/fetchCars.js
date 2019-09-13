@@ -3,23 +3,22 @@
  */
 
 //constants
-const URL = "/CAone/api/cars/all";
+const CARSURL = "/CAone/api/cars/all";
 const CONTENTDIV = document.querySelector("#content");
-var filterNow = false;
+
 /**
  * Making table of all cars. Sorts and filters after which choices has been made
  */
-function getAllCars(e) {
-    e.preventDefault();
-    console.log(e.target.innerText);
+function getAllCars(ev) {
+    ev.preventDefault();
+    console.log(ev.target.innerText);
 
-    fetch(URL)
+    fetch(CARSURL)
             .then(res => res.json())
             .then(data => {
-                CONTENTDIV.innerHTML = "";
-        
+
                 //sorting arrays
-                sorting(e, data);
+                sorting(ev, data);
 
                 // filtering
                 data = filtering(data);
@@ -154,16 +153,18 @@ function addEvents() {
     document.querySelector("#makeInput").addEventListener("change", getAllCars);
     document.querySelector("#priceLessInput").addEventListener("change", getAllCars);
     document.querySelector("#priceMoreInput").addEventListener("change", getAllCars);
-
-    document.querySelector("#h1content").innerHTML = "Cars for sale";
-    document.querySelector("#h3content").innerHTML = "Press columns for sorting";
-    document.querySelector("#jokeButtons").style = "display: none;";
 }
 
 /**
  * inserting forms and text on page
+ * and updating H1 and H3
  */
 function insertForms() {
+
+    CONTENTDIV.innerHTML = "";
+    document.querySelector("#h1content").innerHTML = "Cars for sale";
+    document.querySelector("#h3content").innerHTML = "Press columns for sorting";
+    document.querySelector("#jokeButtons").style = "display: none;";
 
     // making div to contain all ( for CSS )
     var inputDiv = document.createElement("DIV");

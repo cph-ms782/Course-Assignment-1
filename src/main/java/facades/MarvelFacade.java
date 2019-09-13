@@ -39,8 +39,8 @@ public class MarvelFacade {
     
 
 
-    public Marvel addMarvel(int year, String titel) {
-        Marvel marvel = new Marvel( year, titel);
+    public Marvel addMarvel(int marvelYear, String titel) {
+        Marvel marvel = new Marvel( marvelYear, titel);
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();

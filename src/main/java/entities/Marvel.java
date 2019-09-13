@@ -21,7 +21,7 @@ public class Marvel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long marvelID;
-    private int year;
+    private int marvelYear;
     private String titel;
     
     
@@ -29,7 +29,7 @@ public class Marvel implements Serializable {
     }
 
     public Marvel( int year, String titel) {
-        this.year = year;
+        this.marvelYear = year;
         this.titel = titel;
     }
 
@@ -42,11 +42,11 @@ public class Marvel implements Serializable {
     }
 
     public int getYear() {
-        return year;
+        return marvelYear;
     }
 
     public void setYear(int year) {
-        this.year = year;
+        this.marvelYear = year;
     }
 
     public String getTitel() {
