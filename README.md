@@ -1,7 +1,7 @@
 # CA 1  
 [![Build Status](https://travis-ci.org/cph-ms782/Course-Assignment-1.svg?branch=master)](https://travis-ci.org/cph-ms782/Course-Assignment-1)
 
-This project cosists of and index page and a groupContract page.
+This project consists of an index page and a groupContract page.
 
 The index page starts out with a table of our group members that can be sorted by clicking the tables heads. It also has buttons that changes the content of the page, a button that changes it to content relating to jokes and a button that changes it to content ralating to cars, aswell as a button that gets you back to the group content.
 
