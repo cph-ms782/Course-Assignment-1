@@ -6,6 +6,7 @@ import entities.Joke;
 import facades.JokeFacade;
 import utils.EMF_Creator;
 import java.util.List;
+import java.util.Random;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -19,7 +20,6 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Simon
  */
-
 @Path("joke")
 public class JokeResource {
 
@@ -54,23 +54,26 @@ public class JokeResource {
         return GSON.toJson(joke);
     }
 
+    @Path("random")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getRandomJokeById(@PathParam("random") Long id) {
+        int amount = FACADE.allJokes().size();
+        Random rand = new Random();
+        long number = (long) (Math.ceil(rand.nextDouble() * amount));
+        Joke joke = FACADE.findByID(number);
+        return GSON.toJson(joke);
+    }
+
     @Path("fill")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String Fill() {
-        FACADE.addJoke("a", "Offensive", "web");
-        FACADE.addJoke("b", "Offensive", "web");
-        FACADE.addJoke("c", "Offensive", "web");
-        FACADE.addJoke("d", "Offensive", "web");
-        FACADE.addJoke("e", "Mild", "web");
-        FACADE.addJoke("f", "Mild", "web");
-        FACADE.addJoke("g", "Mild", "web");
-        FACADE.addJoke("h", "Mild", "web");
-        FACADE.addJoke("i", "Mild", "web");
-        FACADE.addJoke("j", "Mild", "web");
-        FACADE.addJoke("k", "Mild", "web");
-        FACADE.addJoke("l", "Mild", "web");
-        FACADE.addJoke("m", "Mild", "web");
+        FACADE.addJoke("Hvor mange sten gik der til det Runde Tårn? - Ingen, fordi sten kan jo ikke gå.", "Plat", "de-sjove-jokes.dk/daarlige-jokes/");
+        FACADE.addJoke("Gæsten til tjeneren: Hvad er det for et grimt billede, i har hængende der? - Det er ikke et billede, hr, det er et spejl.", "Plat", "de-sjove-jokes.dk/daarlige-jokes/");
+        FACADE.addJoke("Lille Hanne har været med sine forældre ude og flyve. Da hun går gennem tolden, vil Tolderen drille hende lidt. Har du nogen cigaretter i lommen, lille frøken? Nej dem har mor i hatten.", "Plat", "de-sjove-jokes.dk/daarlige-jokes/");
+        FACADE.addJoke("Hvorfor skulle skyen i skole? Fordi den skulle lære og regne.", "Plat", "de-sjove-jokes.dk/daarlige-jokes/");
+        FACADE.addJoke("Hvornår kan man komme op til solen uden og brænde sig? Om natten.", "Plat", "de-sjove-jokes.dk/daarlige-jokes/");
         return GSON.toJson("Database filled");
     }
 

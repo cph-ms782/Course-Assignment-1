@@ -1,6 +1,7 @@
 package facades;
 
-import entities.Joke;
+import entities.Marvel;
+import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -8,26 +9,26 @@ import javax.persistence.TypedQuery;
 
 /**
  *
- * @author Simon
+ * Rename Class to a relevant name Add add relevant facade methods
  */
-public class JokeFacade {
+public class MarvelFacade {
 
-    private static JokeFacade instance;
+    private static MarvelFacade instance;
     private static EntityManagerFactory emf;
-
+    
     //Private Constructor to ensure Singleton
-    private JokeFacade() {
-    }
-
+    private MarvelFacade() {}
+    
+    
     /**
-     *
+     * 
      * @param _emf
      * @return an instance of this facade class.
      */
-    public static JokeFacade getJokesFacade(EntityManagerFactory _emf) {
+    public static MarvelFacade getMarvelFacade(EntityManagerFactory _emf) {
         if (instance == null) {
             emf = _emf;
-            instance = new JokeFacade();
+            instance = new MarvelFacade();
         }
         return instance;
     }
@@ -35,43 +36,33 @@ public class JokeFacade {
     private EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
+    
 
-    public Joke addJoke(String joke, String jokeType, String reference) {
-        Joke j = new Joke(joke, jokeType, reference);
+
+    public Marvel addMarvel(int marvelYear, String titel) {
+        Marvel marvel = new Marvel( marvelYear, titel);
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.persist(j);
+            em.persist(marvel);
             em.getTransaction().commit();
-            return j;
+            return marvel;
         } finally {
             em.close();
         }
     }
 
-    public Joke findByID(Long id) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            Joke joke = em.find(Joke.class, id);
-            return joke;
-        } finally {
-            em.close();
-        }
-    }
 
-    public List<Joke> allJokes() {
+
+    public List<Marvel> allMarvel() {
         EntityManager em = emf.createEntityManager();
         try {
-            TypedQuery<Joke> query
-                    = em.createQuery("Select j from Joke j", Joke.class);
+            TypedQuery<Marvel> query
+                    = em.createQuery("Select c from Marvel c", Marvel.class);
             return query.getResultList();
         } finally {
             em.close();
         }
     }
-
-    public static void main(String[] args) {
-
-    }
-
+    
 }

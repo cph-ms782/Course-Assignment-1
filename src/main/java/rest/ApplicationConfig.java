@@ -23,6 +23,7 @@ public class ApplicationConfig extends Application {
         resources.add(rest.CarResource.class);
         resources.add(rest.GroupMemberResource.class);
         resources.add(rest.JokeResource.class);
+        resources.add(rest.MarvelResource.class);
 
     }
 }
